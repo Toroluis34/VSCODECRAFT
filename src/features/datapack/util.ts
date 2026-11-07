@@ -45,6 +45,7 @@ export async function pickResourceRoot(core: Core, uri?: vscode.Uri, placeHolder
       stat = undefined;
     }
     if (stat?.type === vscode.FileType.Directory) {
+      if (/\/(data|assets)\/?$/.test(uri.path)) return vscode.Uri.joinPath(uri, '..');
       if ((await exists(vscode.Uri.joinPath(uri, 'data'))) || (await exists(vscode.Uri.joinPath(uri, 'assets'))) || (await exists(vscode.Uri.joinPath(uri, 'pack.mcmeta')))) return uri;
     }
     const info = core.index.info(uri);

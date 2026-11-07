@@ -80,6 +80,13 @@ test('loot table 1.21.11 → 26.3 matches vanilla wheat.json', () => {
   assert.deepEqual(pool.rolls, { type: 'minecraft:uniform', min: 1, max: 3 });
 });
 
+test('Forge-style recipe conditions are not touched by the loot migration', () => {
+  const recipe = { type: 'minecraft:crafting_shapeless', conditions: [{ type: 'forge:mod_loaded', modid: 'x' }], ingredients: ['minecraft:stone'], result: { id: 'minecraft:dirt' } };
+  const { value, changedBy } = run('data/ns/recipe/r.json', recipe, '1.21.11', '26.3');
+  assert.deepEqual(changedBy, []);
+  assert.deepEqual(value, recipe);
+});
+
 test('predicate files: list → all_of', () => {
   const { value } = run('data/ns/predicate/p.json', [{ condition: 'minecraft:random_chance', chance: 0.5 }, { condition: 'minecraft:weather_check', raining: true }], '1.21.11', '26.3');
   assert.deepEqual(value, { type: 'minecraft:all_of', terms: [{ type: 'minecraft:random_chance', chance: 0.5 }, { type: 'minecraft:weather_check', raining: true }] });

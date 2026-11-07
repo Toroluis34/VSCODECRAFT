@@ -451,8 +451,9 @@ function migrateContextPredicate(v: any, notes: Msg[]): any {
   return v;
 }
 
-const isCondition = (v: unknown) => typeof v === 'string' || (isObj(v) && (typeof v.type === 'string' || typeof v.condition === 'string'));
-const isFunction = (v: unknown) => typeof v === 'string' || (isObj(v) && (typeof v.type === 'string' || typeof v.function === 'string'));
+// Only vanilla loot conditions / functions: Forge/NeoForge recipe "conditions" ({type: "forge:mod_loaded"}) must stay untouched.
+const isCondition = (v: unknown) => typeof v === 'string' || (isObj(v) && LOOT_CONDITIONS.has(bare(v.type ?? v.condition)));
+const isFunction = (v: unknown) => typeof v === 'string' || (isObj(v) && LOOT_FUNCTIONS.has(bare(v.type ?? v.function)));
 
 function ensureNumberProviderType(v: any): any {
   if (isObj(v) && v.type === undefined && v.min !== undefined && v.max !== undefined) return typeFirst('minecraft:uniform', v);
