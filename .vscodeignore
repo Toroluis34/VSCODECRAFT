@@ -10,3 +10,7 @@ esbuild.mjs
 **/*.map
 **/*.ts
 .gitignore
+.harness-cache/**
+AGENTS.md
+harness-*.png
+**/fixtures/**

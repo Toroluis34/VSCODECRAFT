@@ -20,9 +20,9 @@ export const QUICK_ACTIONS: QuickAction[] = [
   { label: 'New Texture', icon: 'paintcan', command: 'vscodecraft.textures.newTexture' },
   { label: 'Recipe Browser', icon: 'book', command: 'vscodecraft.recipes.browser' },
   { label: 'Advancement Tree', icon: 'type-hierarchy', command: 'vscodecraft.loot.advancementTree' },
-  { label: 'Item Builder', icon: 'wand', command: 'vscodecraft.loot.itemBuilder' },
-  { label: 'Lang Editor', icon: 'globe', command: 'vscodecraft.translations.openEditor' },
-  { label: 'Export Pack', icon: 'archive', command: 'vscodecraft.datapack.exportZip' },
+  { label: 'Item Builder', icon: 'wand', command: 'vscodecraft.loot.give' },
+  { label: 'Lang Editor', icon: 'globe', command: 'vscodecraft.translations.openLangEditor' },
+  { label: 'Export Pack', icon: 'archive', command: 'vscodecraft.datapack.exportDatapack' },
   { label: 'Download vanilla data', icon: 'cloud-download', command: 'vscodecraft.downloadData' },
   { label: 'Welcome & project generators', icon: 'rocket', command: 'vscodecraft.explorer.welcome' },
 ];

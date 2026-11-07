@@ -25,6 +25,8 @@ const extensionOptions = {
   target: 'node18',
   outdir: 'dist',
   external: ['vscode'],
+  // Prefer ESM builds: jsonc-parser's UMD build uses dynamic require() that can't be bundled.
+  mainFields: ['module', 'main'],
   sourcemap: !production,
   minify: production,
   logLevel: 'info',

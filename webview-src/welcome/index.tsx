@@ -45,10 +45,10 @@ const TOOLS: { command: string; label: string; icon: string }[] = [
   { command: 'vscodecraft.recipes.new', label: 'New Recipe', icon: '⚒' },
   { command: 'vscodecraft.recipes.browser', label: 'Recipe Browser', icon: '📖' },
   { command: 'vscodecraft.textures.newTexture', label: 'New Texture', icon: '🎨' },
-  { command: 'vscodecraft.translations.openEditor', label: 'Lang Editor', icon: '🌐' },
+  { command: 'vscodecraft.translations.openLangEditor', label: 'Lang Editor', icon: '🌐' },
   { command: 'vscodecraft.loot.advancementTree', label: 'Advancement Tree', icon: '★' },
-  { command: 'vscodecraft.loot.itemBuilder', label: 'Item Builder', icon: '✦' },
-  { command: 'vscodecraft.datapack.exportZip', label: 'Export Pack', icon: '📦' },
+  { command: 'vscodecraft.loot.give', label: 'Item Builder', icon: '✦' },
+  { command: 'vscodecraft.datapack.exportDatapack', label: 'Export Pack', icon: '📦' },
   { command: 'vscodecraft.downloadData', label: 'Download vanilla data', icon: '⇩' },
   { command: 'vscodecraft.selectVersion', label: 'Select Minecraft version', icon: '⚙' },
 ];

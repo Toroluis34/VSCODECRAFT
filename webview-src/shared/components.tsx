@@ -289,7 +289,7 @@ export function ItemPicker({ onPick, registry = 'item', placeholder, includeTags
 
 // ---------- small UI helpers ----------
 
-export function Button(p: JSX.HTMLAttributes<HTMLButtonElement> & { secondary?: boolean; icon?: string }): JSX.Element {
+export function Button(p: JSX.HTMLAttributes<HTMLButtonElement> & { secondary?: boolean; icon?: string; disabled?: boolean; type?: string }): JSX.Element {
   const { secondary, icon, children, class: cls, ...rest } = p as any;
   return (
     <button class={`mc-button ${secondary ? 'secondary' : ''} ${cls ?? ''}`} {...rest}>
