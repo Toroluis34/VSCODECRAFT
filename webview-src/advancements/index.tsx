@@ -28,7 +28,7 @@ body { padding: 10px 14px; }
 .adv-node .mc-icon { position: absolute; left: 5px; top: 5px; }
 .adv-node:hover svg { filter: brightness(1.35); }
 .adv-node.workspace .adv-dot { position: absolute; right: -3px; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: #55ff55; border: 1px solid #000; }
-.adv-label { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); font-size: 7px; line-height: 1.1; color: #fff; text-shadow: 1px 1px 0 #000; white-space: nowrap; max-width: 90px; overflow: hidden; text-overflow: ellipsis; pointer-events: none; }
+.adv-label { position: absolute; top: 28px; left: 50%; transform: translateX(-50%); font-size: 7px; line-height: 1.1; color: #fff; text-shadow: 1px 1px 0 #000; white-space: nowrap; max-width: 58px; overflow: hidden; text-overflow: ellipsis; pointer-events: none; }
 .adv-hover { position: fixed; z-index: 50; pointer-events: none; min-width: 220px; max-width: 380px; }
 .adv-hover .head { display: flex; gap: 8px; align-items: center; padding: 4px 8px; border-radius: 3px 3px 0 0; color: #fff; font-weight: bold; }
 .adv-hover .head.task, .adv-hover .head.goal { background: #0f5ea3; }
@@ -59,8 +59,8 @@ body { padding: 10px 14px; }
 );
 
 const st = boot<AdvancementViewState>().state ?? { mode: 'tree', version: '26.3' };
-const COL = 50;
-const ROW = 30;
+const COL = 62;
+const ROW = 42;
 const PAD = 24;
 
 const FRAME_COLORS: Record<Frame, { fill: string; edge: string }> = {

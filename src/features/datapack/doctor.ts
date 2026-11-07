@@ -6,6 +6,7 @@ import { jsonc } from '../../core/jsonUtils';
 import { atLeast } from '../../core/versions';
 import { isJunkFile, isKnownFolder, PathProblem, validateResourcePath } from './pathValidation';
 import { validatePackMcmeta, versionFormat } from './packFormat';
+import { problemMessage } from './packMcmeta';
 import { listFiles, packKinds, relPath, t, versionTable } from './util';
 
 function pathProblemMessage(p: PathProblem): string {
@@ -61,7 +62,7 @@ async function checkRoot(core: Core, root: vscode.Uri): Promise<{ findings: Find
       for (const k of kinds) {
         const v = versionTable().find((x) => x.id === version);
         for (const p of validatePackMcmeta(value, k, version, v ? versionFormat(v, k) : undefined)) {
-          findings.push({ severity: p.severity, uri: mcmetaUri, message: `pack.mcmeta (${k === 'data' ? 'data' : 'resources'}): ${p.code} ${p.args.join(' ')}`.trim() });
+          findings.push({ severity: p.severity, uri: mcmetaUri, message: `pack.mcmeta (${k === 'data' ? 'data' : 'resources'}): ${problemMessage(p)}` });
         }
       }
     }

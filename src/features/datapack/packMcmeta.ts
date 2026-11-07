@@ -27,7 +27,7 @@ import { indentOf, kindLabel, packKinds, pickResourceRoot, pickVersion, readJson
 
 const SELECTOR: vscode.DocumentSelector = [{ pattern: '**/pack.mcmeta' }];
 
-function problemMessage(p: PackProblem): string {
+export function problemMessage(p: PackProblem): string {
   const a = p.args;
   switch (p.code) {
     case 'missingPack':

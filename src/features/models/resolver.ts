@@ -56,8 +56,8 @@ export class ModelResolver {
       return (await this.core.icons.loadModel(mid, version)) as RawModel | undefined;
     });
     const missingParent = merged.chain.find((c) => !c.found);
-    if (missingParent) notes.push(`Model not found: ${missingParent.id}`);
-    if (merged.builtinEntity) notes.push('builtin/entity: this model is rendered by code (block entity renderer).');
+    if (missingParent) notes.push(vscode.l10n.t('Model not found: {0}', missingParent.id));
+    if (merged.builtinEntity) notes.push(vscode.l10n.t('builtin/entity: this model is rendered by code (block entity renderer).'));
 
     const refCache = new Map<string, Promise<{ ref: TextureRef | null; fileUri?: string }>>();
     const lookup = (texId: string) => {
@@ -138,9 +138,9 @@ export class ModelResolver {
       result.elements.push(r.el);
       result.rawElements.push(raw);
     }
-    if (approx) notes.push('Some element rotations use several free axes and are shown approximately.');
+    if (approx) notes.push(vscode.l10n.t('Some element rotations use several free axes and are shown approximately.'));
     if (opts.x || opts.y) result.elements = rotateElements(result.elements, opts.x ?? 0, opts.y ?? 0, !!opts.uvlock);
-    if (!merged.elements && !merged.generated && !merged.builtinEntity && !missingParent) notes.push('This model has no elements (nothing to draw).');
+    if (!merged.elements && !merged.generated && !merged.builtinEntity && !missingParent) notes.push(vscode.l10n.t('This model has no elements (nothing to draw).'));
     return result;
   }
 }

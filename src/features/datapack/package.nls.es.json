@@ -1,0 +1,18 @@
+{
+  "datapack.createPackMcmeta": "Crear/actualizar pack.mcmeta…",
+  "datapack.setSupportedVersions": "Definir versiones de Minecraft compatibles (pack.mcmeta)…",
+  "datapack.addOverlay": "Añadir overlay de pack.mcmeta para versiones…",
+  "datapack.migrate": "Migrar recursos del pack/mod a otra versión…",
+  "datapack.exportDatapack": "Exportar datapack como .zip",
+  "datapack.exportResourcePack": "Exportar paquete de recursos como .zip",
+  "datapack.installToInstance": "Instalar pack en una instancia de Minecraft…",
+  "datapack.openTagEditor": "Abrir editor de etiquetas",
+  "datapack.addToTag": "Añadir a etiqueta…",
+  "datapack.createTag": "Crear etiqueta…",
+  "datapack.findTagUsages": "Buscar usos de la etiqueta",
+  "datapack.packDoctor": "Pack Doctor: revisar packs y recursos",
+  "datapack.tagEditor": "Editor de etiquetas de Minecraft",
+  "datapack.config.exportFolder": "Carpeta predeterminada para **Exportar datapack/paquete de recursos como .zip** (se recuerda la última carpeta usada).",
+  "datapack.config.instanceFolders": "Carpetas de juego o de instancias adicionales que se ofrecerán en **Instalar pack en una instancia de Minecraft…** (el launcher oficial, Prism, MultiMC, CurseForge, Modrinth App, ATLauncher y GDLauncher se detectan automáticamente).",
+  "datapack.config.pathDiagnostics": "Avisar de archivos de recursos cuya ruta contiene mayúsculas, espacios u otros caracteres que Minecraft no acepta."
+}

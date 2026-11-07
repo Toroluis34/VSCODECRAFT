@@ -1,0 +1,84 @@
+{
+  "commands": [
+    { "command": "vscodecraft.datapack.createPackMcmeta", "title": "%datapack.createPackMcmeta%", "category": "VSCodeCraft", "icon": "$(package)" },
+    { "command": "vscodecraft.datapack.setSupportedVersions", "title": "%datapack.setSupportedVersions%", "category": "VSCodeCraft", "icon": "$(versions)" },
+    { "command": "vscodecraft.datapack.addOverlay", "title": "%datapack.addOverlay%", "category": "VSCodeCraft", "icon": "$(layers)" },
+    { "command": "vscodecraft.datapack.migrate", "title": "%datapack.migrate%", "category": "VSCodeCraft", "icon": "$(arrow-up)" },
+    { "command": "vscodecraft.datapack.exportDatapack", "title": "%datapack.exportDatapack%", "category": "VSCodeCraft", "icon": "$(file-zip)" },
+    { "command": "vscodecraft.datapack.exportResourcePack", "title": "%datapack.exportResourcePack%", "category": "VSCodeCraft", "icon": "$(file-zip)" },
+    { "command": "vscodecraft.datapack.installToInstance", "title": "%datapack.installToInstance%", "category": "VSCodeCraft", "icon": "$(rocket)" },
+    { "command": "vscodecraft.datapack.openTagEditor", "title": "%datapack.openTagEditor%", "category": "VSCodeCraft", "icon": "$(tag)" },
+    { "command": "vscodecraft.datapack.addToTag", "title": "%datapack.addToTag%", "category": "VSCodeCraft", "icon": "$(tag-add)" },
+    { "command": "vscodecraft.datapack.createTag", "title": "%datapack.createTag%", "category": "VSCodeCraft", "icon": "$(new-file)" },
+    { "command": "vscodecraft.datapack.findTagUsages", "title": "%datapack.findTagUsages%", "category": "VSCodeCraft", "icon": "$(references)" },
+    { "command": "vscodecraft.datapack.packDoctor", "title": "%datapack.packDoctor%", "category": "VSCodeCraft", "icon": "$(checklist)" }
+  ],
+  "menus": {
+    "explorer/context": [
+      { "command": "vscodecraft.datapack.openTagEditor", "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]data[\\\\/][^\\\\/]+[\\\\/]tags[\\\\/]/", "group": "vscodecraft@1" },
+      { "command": "vscodecraft.datapack.findTagUsages", "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]data[\\\\/][^\\\\/]+[\\\\/]tags[\\\\/]/", "group": "vscodecraft@2" },
+      { "command": "vscodecraft.datapack.createPackMcmeta", "when": "resourceFilename == pack.mcmeta", "group": "vscodecraft@3" },
+      { "command": "vscodecraft.datapack.exportDatapack", "when": "resourceFilename == pack.mcmeta || explorerResourceIsFolder && resourceFilename == data", "group": "vscodecraft@4" },
+      { "command": "vscodecraft.datapack.exportResourcePack", "when": "resourceFilename == pack.mcmeta || explorerResourceIsFolder && resourceFilename == assets", "group": "vscodecraft@5" },
+      { "command": "vscodecraft.datapack.migrate", "when": "resourceFilename == pack.mcmeta || explorerResourceIsFolder && resourceFilename =~ /^(data|assets|resources)$/", "group": "vscodecraft@6" },
+      { "command": "vscodecraft.datapack.addToTag", "when": "resourceExtname == .json && resourcePath =~ /[\\\\/](models[\\\\/](item|block)|items|blockstates)[\\\\/]/", "group": "vscodecraft@7" }
+    ],
+    "editor/title": [
+      { "command": "vscodecraft.datapack.openTagEditor", "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]data[\\\\/][^\\\\/]+[\\\\/]tags[\\\\/]/ && activeCustomEditorId != vscodecraft.datapack.tagEditor", "group": "navigation@5" },
+      { "command": "vscodecraft.datapack.setSupportedVersions", "when": "resourceFilename == pack.mcmeta", "group": "navigation@5" }
+    ],
+    "editor/context": [
+      { "command": "vscodecraft.datapack.addToTag", "when": "resourceLangId == json && resourcePath =~ /[\\\\/](data|assets)[\\\\/]/", "group": "vscodecraft@2" }
+    ],
+    "commandPalette": [
+      { "command": "vscodecraft.datapack.findTagUsages" }
+    ]
+  },
+  "customEditors": [
+    {
+      "viewType": "vscodecraft.datapack.tagEditor",
+      "displayName": "%datapack.tagEditor%",
+      "selector": [{ "filenamePattern": "**/data/*/tags/**/*.json" }],
+      "priority": "option"
+    }
+  ],
+  "languages": [
+    {
+      "id": "mcfunction",
+      "aliases": ["mcfunction", "Minecraft Function"],
+      "extensions": [".mcfunction"],
+      "configuration": "./syntaxes/mcfunction.language-configuration.json"
+    },
+    {
+      "id": "json",
+      "filenames": ["pack.mcmeta"],
+      "extensions": [".mcmeta"]
+    }
+  ],
+  "grammars": [
+    { "language": "mcfunction", "scopeName": "source.mcfunction", "path": "./syntaxes/mcfunction.tmLanguage.json" }
+  ],
+  "snippets": [
+    { "language": "mcfunction", "path": "./snippets/mcfunction.json" }
+  ],
+  "configuration": {
+    "properties": {
+      "vscodecraft.datapack.exportFolder": {
+        "type": "string",
+        "default": "",
+        "markdownDescription": "%datapack.config.exportFolder%"
+      },
+      "vscodecraft.datapack.instanceFolders": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": [],
+        "markdownDescription": "%datapack.config.instanceFolders%"
+      },
+      "vscodecraft.datapack.pathDiagnostics": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%datapack.config.pathDiagnostics%"
+      }
+    }
+  }
+}
