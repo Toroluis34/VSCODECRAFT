@@ -1,0 +1,48 @@
+{
+  "commands": [
+    { "command": "vscodecraft.selectVersion", "title": "%core.selectVersion%", "category": "VSCodeCraft", "icon": "$(versions)" },
+    { "command": "vscodecraft.downloadData", "title": "%core.downloadData%", "category": "VSCodeCraft", "icon": "$(cloud-download)" },
+    { "command": "vscodecraft.clearCache", "title": "%core.clearCache%", "category": "VSCodeCraft" },
+    { "command": "vscodecraft.showLog", "title": "%core.showLog%", "category": "VSCodeCraft" },
+    { "command": "vscodecraft.refreshProjects", "title": "%core.refreshProjects%", "category": "VSCodeCraft", "icon": "$(refresh)" }
+  ],
+  "configuration": {
+    "title": "VSCodeCraft",
+    "properties": {
+      "vscodecraft.minecraftVersion": {
+        "type": "string",
+        "default": "auto",
+        "markdownDescription": "%core.config.minecraftVersion%",
+        "examples": ["auto", "26.3", "26.2", "26.1.2", "1.21.11", "1.21.4", "1.21.1"],
+        "scope": "resource"
+      },
+      "vscodecraft.defaultNamespace": {
+        "type": "string",
+        "default": "",
+        "markdownDescription": "%core.config.defaultNamespace%",
+        "scope": "resource"
+      },
+      "vscodecraft.displayLanguage": {
+        "type": "string",
+        "default": "auto",
+        "markdownDescription": "%core.config.displayLanguage%",
+        "examples": ["auto", "en_us", "es_es", "es_mx", "pt_br"]
+      },
+      "vscodecraft.data.allowDownload": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%core.config.allowDownload%"
+      },
+      "vscodecraft.data.autoDownload": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%core.config.autoDownload%"
+      },
+      "vscodecraft.data.baseUrl": {
+        "type": "string",
+        "default": "https://raw.githubusercontent.com/misode/mcmeta",
+        "markdownDescription": "%core.config.baseUrl%"
+      }
+    }
+  }
+}

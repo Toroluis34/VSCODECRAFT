@@ -1,0 +1,13 @@
+{
+  "core.selectVersion": "Select Target Minecraft Version",
+  "core.downloadData": "Download Vanilla Data for Target Version",
+  "core.clearCache": "Clear Downloaded Data Cache",
+  "core.showLog": "Show Log",
+  "core.refreshProjects": "Re-detect Minecraft Projects",
+  "core.config.minecraftVersion": "Minecraft version that generators, validation and previews target. `auto` detects it from `gradle.properties`, `fabric.mod.json`, `neoforge.mods.toml` or `pack.mcmeta`.",
+  "core.config.defaultNamespace": "Namespace (mod id) for new resources. Empty = detected mod id.",
+  "core.config.displayLanguage": "Language for item/block names in previews (`auto` follows VS Code's language).",
+  "core.config.allowDownload": "Allow downloading vanilla data (textures, models, recipes, tags, names) for the target version from the community mirror of the official game files. Registries, tags and English names for 1.21.1, 1.21.11 and 26.3 are bundled for offline use.",
+  "core.config.autoDownload": "Automatically download vanilla data for the detected version in the background the first time a project is opened.",
+  "core.config.baseUrl": "Base URL of the mcmeta mirror used to download vanilla data."
+}

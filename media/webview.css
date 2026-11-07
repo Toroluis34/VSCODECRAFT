@@ -1,0 +1,185 @@
+/* Shared styles for every VSCodeCraft webview. Uses VS Code theme variables so it follows light/dark themes. */
+:root {
+  --mc-slot-bg: #8b8b8b;
+  --mc-slot-border-dark: #373737;
+  --mc-slot-border-light: #ffffff;
+  --mc-panel-bg: #c6c6c6;
+  --mc-panel-border: #555555;
+  --mc-text-shadow: #3f3f3f;
+  --mc-accent: var(--vscode-focusBorder, #007fd4);
+  --mc-radius: 4px;
+  --mc-gap: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  color: var(--vscode-foreground);
+  background: var(--vscode-editor-background);
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size, 13px);
+}
+
+body { padding: 12px 16px; }
+
+h1, h2, h3 { font-weight: 600; margin: 0.6em 0 0.4em; }
+h1 { font-size: 1.4em; }
+h2 { font-size: 1.2em; }
+h3 { font-size: 1.05em; }
+
+a { color: var(--vscode-textLink-foreground); }
+code, .mono { font-family: var(--vscode-editor-font-family, monospace); font-size: 0.95em; }
+
+.mc-muted { color: var(--vscode-descriptionForeground); }
+.mc-error { color: var(--vscode-errorForeground); }
+.mc-warning { color: var(--vscode-editorWarning-foreground, #cca700); }
+.mc-row { display: flex; gap: var(--mc-gap); align-items: center; flex-wrap: wrap; }
+.mc-col { display: flex; flex-direction: column; gap: var(--mc-gap); }
+.mc-grow { flex: 1 1 auto; min-width: 0; }
+.mc-spacer { flex: 1; }
+.mc-hidden { display: none !important; }
+
+/* ---- form controls ---- */
+.mc-input, .mc-select, textarea.mc-input {
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, transparent);
+  border-radius: 2px;
+  padding: 4px 6px;
+  font: inherit;
+  min-width: 0;
+}
+.mc-input:focus, .mc-select:focus { outline: 1px solid var(--vscode-focusBorder); outline-offset: -1px; }
+.mc-select { background: var(--vscode-dropdown-background); color: var(--vscode-dropdown-foreground); border-color: var(--vscode-dropdown-border, transparent); }
+input[type='number'].mc-input { width: 80px; }
+input[type='checkbox'] { accent-color: var(--mc-accent); }
+label.mc-field { display: flex; flex-direction: column; gap: 3px; font-size: 0.92em; color: var(--vscode-descriptionForeground); }
+label.mc-field > * { color: var(--vscode-foreground); }
+
+.mc-button {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: 1px solid var(--vscode-button-border, transparent);
+  border-radius: 2px;
+  padding: 4px 12px;
+  font: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mc-button:hover { background: var(--vscode-button-hoverBackground); }
+.mc-button.secondary { background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); }
+.mc-button.secondary:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.mc-button:disabled { opacity: 0.5; cursor: default; }
+.mc-button-icon { font-size: 1.1em; line-height: 1; }
+.mc-icon-button {
+  background: transparent; border: none; color: var(--vscode-icon-foreground, inherit);
+  cursor: pointer; padding: 2px 4px; border-radius: 3px; font: inherit;
+}
+.mc-icon-button:hover { background: var(--vscode-toolbar-hoverBackground, rgba(128,128,128,.2)); }
+
+/* ---- cards / sections ---- */
+.mc-card {
+  background: var(--vscode-editorWidget-background, var(--vscode-sideBar-background));
+  border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border, rgba(128,128,128,.35)));
+  border-radius: var(--mc-radius);
+  padding: 10px 12px;
+}
+.mc-toolbar {
+  display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+  padding-bottom: 8px; margin-bottom: 8px;
+  border-bottom: 1px solid var(--vscode-panel-border, rgba(128,128,128,.35));
+}
+.mc-badge {
+  display: inline-block; padding: 1px 6px; border-radius: 10px; font-size: 0.85em;
+  background: var(--vscode-badge-background); color: var(--vscode-badge-foreground);
+}
+.mc-tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--vscode-panel-border, rgba(128,128,128,.35)); margin-bottom: 8px; }
+.mc-tab { padding: 6px 12px; cursor: pointer; border: none; background: none; color: var(--vscode-foreground); opacity: .75; font: inherit; border-bottom: 2px solid transparent; }
+.mc-tab.active { opacity: 1; border-bottom-color: var(--mc-accent); }
+
+table.mc-table { border-collapse: collapse; width: 100%; }
+table.mc-table th, table.mc-table td { border-bottom: 1px solid var(--vscode-panel-border, rgba(128,128,128,.25)); padding: 4px 6px; text-align: left; vertical-align: middle; }
+table.mc-table th { position: sticky; top: 0; background: var(--vscode-editor-background); font-weight: 600; z-index: 1; }
+table.mc-table tr:hover td { background: var(--vscode-list-hoverBackground); }
+
+/* ---- Minecraft GUI look ---- */
+.mc-gui {
+  display: inline-block;
+  background: var(--mc-panel-bg);
+  border: 2px solid #000;
+  border-radius: 3px;
+  box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 var(--mc-panel-border);
+  padding: 10px 12px;
+  color: #3f3f3f;
+  image-rendering: pixelated;
+}
+.mc-gui-title { color: #3f3f3f; font-weight: 600; margin: 0 0 6px; font-size: 0.95em; }
+
+.mc-slot {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--mc-slot-bg);
+  border: 2px solid;
+  border-color: var(--mc-slot-border-dark) var(--mc-slot-border-light) var(--mc-slot-border-light) var(--mc-slot-border-dark);
+  user-select: none;
+  flex: 0 0 auto;
+}
+.mc-slot:hover { background: #a3a3a3; }
+.mc-slot.selected { outline: 2px solid var(--mc-accent); outline-offset: 1px; }
+.mc-slot.drop-over { background: #b8d8ff; }
+.mc-slot-large { border-width: 3px; }
+.mc-count {
+  position: absolute; right: 1px; bottom: -1px;
+  color: #fff; font-weight: bold; font-size: 12px;
+  text-shadow: 1px 1px 0 var(--mc-text-shadow);
+  pointer-events: none;
+}
+.mc-tag-badge {
+  position: absolute; left: 1px; top: -2px;
+  color: #ffff55; font-weight: bold; font-size: 10px;
+  text-shadow: 1px 1px 0 var(--mc-text-shadow);
+  pointer-events: none;
+}
+.mc-icon { image-rendering: pixelated; display: block; }
+
+.mc-grid { display: grid; gap: 0; }
+.mc-arrow {
+  width: 32px; height: 22px; margin: 0 10px;
+  background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 15' shape-rendering='crispEdges'%3E%3Cpath fill='%238b8b8b' d='M0 5h14V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v-5H0z'/%3E%3C/svg%3E");
+}
+.mc-flame {
+  width: 28px; height: 28px; opacity: .9;
+  background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' shape-rendering='crispEdges'%3E%3Cpath fill='%23ff8a00' d='M6 0h1v2h1v1h1v2h1v1h1v1h1v5h-1v1h-1v1H3v-1H2v-1H1V8h1V6h1V5h1V3h1V1h1z'/%3E%3Cpath fill='%23ffd800' d='M6 6h1v1h1v1h1v4H4V9h1V7h1z'/%3E%3C/svg%3E");
+}
+
+/* Minecraft-style tooltip */
+.mc-tooltip {
+  position: fixed; z-index: 1000; pointer-events: none;
+  background: rgba(16, 0, 16, 0.94);
+  border: 2px solid #28007a;
+  border-radius: 3px;
+  padding: 4px 6px;
+  color: #fff;
+  font-size: 12px;
+  max-width: 360px;
+}
+.mc-text { white-space: pre-wrap; }
+
+/* Item picker */
+.mc-picker { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.mc-picker-grid {
+  display: flex; flex-wrap: wrap; gap: 2px;
+  max-height: 260px; overflow-y: auto;
+  padding: 4px;
+  background: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border, rgba(128,128,128,.3));
+}
+.mc-picker-grid .mc-slot { cursor: grab; }
+
+/* Scrollbars follow VS Code */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--vscode-scrollbarSlider-background); }
+::-webkit-scrollbar-thumb:hover { background: var(--vscode-scrollbarSlider-hoverBackground); }

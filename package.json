@@ -1,0 +1,155 @@
+{
+  "name": "vscodecraft",
+  "displayName": "VSCodeCraft — Minecraft Modding Toolkit",
+  "description": "All-in-one toolkit for Minecraft Java mods, datapacks and resource packs (1.21+ and 26.x): visual recipe editor & preview, model viewer, texture editor, JSON IntelliSense, lang editor, loot tables, advancements, tags, pack tools and more.",
+  "version": "0.1.0",
+  "publisher": "toroluis34",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Toroluis34/VSCODECRAFT"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Linters",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "minecraft",
+    "mod",
+    "modding",
+    "fabric",
+    "neoforge",
+    "forge",
+    "datapack",
+    "resourcepack",
+    "recipe",
+    "json"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/pack.mcmeta",
+    "workspaceContains:**/fabric.mod.json",
+    "workspaceContains:**/neoforge.mods.toml",
+    "workspaceContains:**/mods.toml",
+    "workspaceContains:**/quilt.mod.json",
+    "workspaceContains:**/gradle.properties",
+    "onLanguage:json",
+    "onLanguage:mcfunction"
+  ],
+  "main": "./dist/extension.js",
+  "l10n": "./l10n",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscodecraft.selectVersion",
+        "title": "%core.selectVersion%",
+        "category": "VSCodeCraft",
+        "icon": "$(versions)"
+      },
+      {
+        "command": "vscodecraft.downloadData",
+        "title": "%core.downloadData%",
+        "category": "VSCodeCraft",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "vscodecraft.clearCache",
+        "title": "%core.clearCache%",
+        "category": "VSCodeCraft"
+      },
+      {
+        "command": "vscodecraft.showLog",
+        "title": "%core.showLog%",
+        "category": "VSCodeCraft"
+      },
+      {
+        "command": "vscodecraft.refreshProjects",
+        "title": "%core.refreshProjects%",
+        "category": "VSCodeCraft",
+        "icon": "$(refresh)"
+      }
+    ],
+    "configuration": {
+      "title": "VSCodeCraft",
+      "properties": {
+        "vscodecraft.minecraftVersion": {
+          "type": "string",
+          "default": "auto",
+          "markdownDescription": "%core.config.minecraftVersion%",
+          "examples": [
+            "auto",
+            "26.3",
+            "26.2",
+            "26.1.2",
+            "1.21.11",
+            "1.21.4",
+            "1.21.1"
+          ],
+          "scope": "resource"
+        },
+        "vscodecraft.defaultNamespace": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "%core.config.defaultNamespace%",
+          "scope": "resource"
+        },
+        "vscodecraft.displayLanguage": {
+          "type": "string",
+          "default": "auto",
+          "markdownDescription": "%core.config.displayLanguage%",
+          "examples": [
+            "auto",
+            "en_us",
+            "es_es",
+            "es_mx",
+            "pt_br"
+          ]
+        },
+        "vscodecraft.data.allowDownload": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%core.config.allowDownload%"
+        },
+        "vscodecraft.data.autoDownload": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%core.config.autoDownload%"
+        },
+        "vscodecraft.data.baseUrl": {
+          "type": "string",
+          "default": "https://raw.githubusercontent.com/misode/mcmeta",
+          "markdownDescription": "%core.config.baseUrl%"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "manifest": "node scripts/build-manifest.mjs",
+    "build": "node scripts/build-manifest.mjs && node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "node --import tsx --test \"test/**/*.test.ts\"",
+    "package": "npm run build -- --production && vsce package --no-dependencies",
+    "vscode:prepublish": "npm run build -- --production"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^4.1.0",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "jsonc-parser": "^3.3.1",
+    "preact": "^10.29.8",
+    "smol-toml": "^1.9.1"
+  }
+}

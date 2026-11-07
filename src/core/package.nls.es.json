@@ -1,0 +1,13 @@
+{
+  "core.selectVersion": "Seleccionar versión de Minecraft objetivo",
+  "core.downloadData": "Descargar datos vanilla de la versión objetivo",
+  "core.clearCache": "Borrar caché de datos descargados",
+  "core.showLog": "Mostrar registro",
+  "core.refreshProjects": "Volver a detectar proyectos de Minecraft",
+  "core.config.minecraftVersion": "Versión de Minecraft para la que generan, validan y previsualizan las herramientas. `auto` la detecta desde `gradle.properties`, `fabric.mod.json`, `neoforge.mods.toml` o `pack.mcmeta`.",
+  "core.config.defaultNamespace": "Namespace (id del mod) para los recursos nuevos. Vacío = id del mod detectado.",
+  "core.config.displayLanguage": "Idioma de los nombres de items/bloques en las vistas previas (`auto` sigue el idioma de VS Code).",
+  "core.config.allowDownload": "Permitir descargar datos vanilla (texturas, modelos, recetas, tags, nombres) de la versión objetivo desde el espejo comunitario de los archivos oficiales del juego. Los registros, tags y nombres en inglés de 1.21.1, 1.21.11 y 26.3 vienen incluidos para usarse sin conexión.",
+  "core.config.autoDownload": "Descargar automáticamente en segundo plano los datos vanilla de la versión detectada la primera vez que se abre un proyecto.",
+  "core.config.baseUrl": "URL base del espejo mcmeta usado para descargar datos vanilla."
+}

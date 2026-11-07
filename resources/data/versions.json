@@ -1,0 +1,272 @@
+[
+ {
+  "id": "26.4-snapshot-7",
+  "type": "snapshot",
+  "dataPack": 126,
+  "dataPackMinor": 0,
+  "resourcePack": 102,
+  "resourcePackMinor": 0,
+  "dataVersion": 5127,
+  "releaseTime": "2026-11-03"
+ },
+ {
+  "id": "26.4-snapshot-6",
+  "type": "snapshot",
+  "dataPack": 125,
+  "dataPackMinor": 1,
+  "resourcePack": 101,
+  "resourcePackMinor": 0,
+  "dataVersion": 5126,
+  "releaseTime": "2026-10-27"
+ },
+ {
+  "id": "26.4-snapshot-5",
+  "type": "snapshot",
+  "dataPack": 125,
+  "dataPackMinor": 0,
+  "resourcePack": 100,
+  "resourcePackMinor": 2,
+  "dataVersion": 5125,
+  "releaseTime": "2026-10-20"
+ },
+ {
+  "id": "26.3",
+  "type": "release",
+  "dataPack": 121,
+  "dataPackMinor": 0,
+  "resourcePack": 97,
+  "resourcePackMinor": 1,
+  "dataVersion": 5023,
+  "releaseTime": "2026-09-15"
+ },
+ {
+  "id": "26.2",
+  "type": "release",
+  "dataPack": 107,
+  "dataPackMinor": 1,
+  "resourcePack": 88,
+  "resourcePackMinor": 0,
+  "dataVersion": 4903,
+  "releaseTime": "2026-06-16"
+ },
+ {
+  "id": "26.1.2",
+  "type": "release",
+  "dataPack": 101,
+  "dataPackMinor": 1,
+  "resourcePack": 84,
+  "resourcePackMinor": 0,
+  "dataVersion": 4790,
+  "releaseTime": "2026-04-09"
+ },
+ {
+  "id": "26.1.1",
+  "type": "release",
+  "dataPack": 101,
+  "dataPackMinor": 1,
+  "resourcePack": 84,
+  "resourcePackMinor": 0,
+  "dataVersion": 4788,
+  "releaseTime": "2026-04-01"
+ },
+ {
+  "id": "26.1",
+  "type": "release",
+  "dataPack": 101,
+  "dataPackMinor": 1,
+  "resourcePack": 84,
+  "resourcePackMinor": 0,
+  "dataVersion": 4786,
+  "releaseTime": "2026-03-24"
+ },
+ {
+  "id": "1.21.11",
+  "type": "release",
+  "dataPack": 94,
+  "dataPackMinor": 1,
+  "resourcePack": 75,
+  "resourcePackMinor": 0,
+  "dataVersion": 4671,
+  "releaseTime": "2025-12-09"
+ },
+ {
+  "id": "1.21.10",
+  "type": "release",
+  "dataPack": 88,
+  "dataPackMinor": 0,
+  "resourcePack": 69,
+  "resourcePackMinor": 0,
+  "dataVersion": 4556,
+  "releaseTime": "2025-10-07"
+ },
+ {
+  "id": "1.21.9",
+  "type": "release",
+  "dataPack": 88,
+  "dataPackMinor": 0,
+  "resourcePack": 69,
+  "resourcePackMinor": 0,
+  "dataVersion": 4554,
+  "releaseTime": "2025-09-30"
+ },
+ {
+  "id": "1.21.8",
+  "type": "release",
+  "dataPack": 81,
+  "dataPackMinor": 0,
+  "resourcePack": 64,
+  "resourcePackMinor": 0,
+  "dataVersion": 4440,
+  "releaseTime": "2025-07-17"
+ },
+ {
+  "id": "1.21.7",
+  "type": "release",
+  "dataPack": 81,
+  "dataPackMinor": 0,
+  "resourcePack": 64,
+  "resourcePackMinor": 0,
+  "dataVersion": 4438,
+  "releaseTime": "2025-06-30"
+ },
+ {
+  "id": "1.21.6",
+  "type": "release",
+  "dataPack": 80,
+  "dataPackMinor": 0,
+  "resourcePack": 63,
+  "resourcePackMinor": 0,
+  "dataVersion": 4435,
+  "releaseTime": "2025-06-17"
+ },
+ {
+  "id": "1.21.5",
+  "type": "release",
+  "dataPack": 71,
+  "dataPackMinor": 0,
+  "resourcePack": 55,
+  "resourcePackMinor": 0,
+  "dataVersion": 4325,
+  "releaseTime": "2025-03-25"
+ },
+ {
+  "id": "1.21.4",
+  "type": "release",
+  "dataPack": 61,
+  "dataPackMinor": 0,
+  "resourcePack": 46,
+  "resourcePackMinor": 0,
+  "dataVersion": 4189,
+  "releaseTime": "2024-12-03"
+ },
+ {
+  "id": "1.21.3",
+  "type": "release",
+  "dataPack": 57,
+  "dataPackMinor": 0,
+  "resourcePack": 42,
+  "resourcePackMinor": 0,
+  "dataVersion": 4082,
+  "releaseTime": "2024-10-23"
+ },
+ {
+  "id": "1.21.2",
+  "type": "release",
+  "dataPack": 57,
+  "dataPackMinor": 0,
+  "resourcePack": 42,
+  "resourcePackMinor": 0,
+  "dataVersion": 4080,
+  "releaseTime": "2024-10-22"
+ },
+ {
+  "id": "1.21.1",
+  "type": "release",
+  "dataPack": 48,
+  "dataPackMinor": 0,
+  "resourcePack": 34,
+  "resourcePackMinor": 0,
+  "dataVersion": 3955,
+  "releaseTime": "2024-08-08"
+ },
+ {
+  "id": "1.21",
+  "type": "release",
+  "dataPack": 48,
+  "dataPackMinor": 0,
+  "resourcePack": 34,
+  "resourcePackMinor": 0,
+  "dataVersion": 3953,
+  "releaseTime": "2024-06-13"
+ },
+ {
+  "id": "1.20.6",
+  "type": "release",
+  "dataPack": 41,
+  "dataPackMinor": 0,
+  "resourcePack": 32,
+  "resourcePackMinor": 0,
+  "dataVersion": 3839,
+  "releaseTime": "2024-04-29"
+ },
+ {
+  "id": "1.20.5",
+  "type": "release",
+  "dataPack": 41,
+  "dataPackMinor": 0,
+  "resourcePack": 32,
+  "resourcePackMinor": 0,
+  "dataVersion": 3837,
+  "releaseTime": "2024-04-23"
+ },
+ {
+  "id": "1.20.4",
+  "type": "release",
+  "dataPack": 26,
+  "dataPackMinor": 0,
+  "resourcePack": 22,
+  "resourcePackMinor": 0,
+  "dataVersion": 3700,
+  "releaseTime": "2023-12-07"
+ },
+ {
+  "id": "1.20.3",
+  "type": "release",
+  "dataPack": 26,
+  "dataPackMinor": 0,
+  "resourcePack": 22,
+  "resourcePackMinor": 0,
+  "dataVersion": 3698,
+  "releaseTime": "2023-12-04"
+ },
+ {
+  "id": "1.20.2",
+  "type": "release",
+  "dataPack": 18,
+  "dataPackMinor": 0,
+  "resourcePack": 18,
+  "resourcePackMinor": 0,
+  "dataVersion": 3578,
+  "releaseTime": "2023-09-20"
+ },
+ {
+  "id": "1.20.1",
+  "type": "release",
+  "dataPack": 15,
+  "dataPackMinor": 0,
+  "resourcePack": 15,
+  "resourcePackMinor": 0,
+  "dataVersion": 3465,
+  "releaseTime": "2023-06-12"
+ },
+ {
+  "id": "1.20",
+  "type": "release",
+  "dataPack": 15,
+  "dataPackMinor": 0,
+  "resourcePack": 15,
+  "resourcePackMinor": 0,
+  "dataVersion": 3463,
+  "releaseTime": "2023-06-02"
+ }
+]
