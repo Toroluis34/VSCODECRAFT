@@ -53,7 +53,7 @@ export async function openWelcome(core: Core, tab: 'start' | 'mod' = 'start'): P
     title: vscode.l10n.t('VSCodeCraft — Welcome'),
     bundle: 'welcome',
     state,
-    icon: 'media/icons/vscodecraft.svg',
+    icon: 'media/icons/vscodecraft-color.svg',
     handlers: {
       'welcome.run': async (p: { command: string; args?: unknown[] }) => {
         if (!p.command.startsWith('vscodecraft.')) throw new Error('Not allowed');

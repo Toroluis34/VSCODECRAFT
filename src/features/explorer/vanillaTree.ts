@@ -373,6 +373,12 @@ export async function vanillaJson(core: Core, version: string, kind: string, id:
     const values = tags?.[normalizeId(id)];
     return values ? { values } : undefined;
   }
+  const isFileKind = kind === 'recipe' || kind === 'loot_table' || kind === 'advancement' || isDataDrivenRegistry(kind);
+  if (!isFileKind) {
+    const names = (await safe(v.lang(version))) ?? {};
+    const key = Object.keys(names).find((k) => k.endsWith(`.${rl.namespace}.${rl.path.replace(/\//g, '.')}`));
+    return { id: normalizeId(id), registry: kind, name: key ? names[key] : humanize(rl.path) };
+  }
   // recipe, loot_table, advancement and any data-driven registry
   const file = await safe(v.dataFile(version, vanillaDataPath(version, kind, id)));
   if (file !== undefined) return file;
@@ -385,9 +391,7 @@ export async function vanillaJson(core: Core, version: string, kind: string, id:
           ? await safe(v.advancements(version))
           : await safe(v.dataFolder(version, kind));
   const fromSummary = summary?.[normalizeId(id)];
-  if (fromSummary !== undefined) return fromSummary;
-  if (!isDataDrivenRegistry(kind)) return { id: normalizeId(id), registry: kind, name: humanize(rl.path) };
-  return undefined;
+  return fromSummary;
 }
 
 /** "Copy to my mod": write the vanilla file into the default namespace, keeping its path. */
