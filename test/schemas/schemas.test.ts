@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import * as jsonc from 'jsonc-parser';
 import { SchemaStore, validate, findBrokenRefs, type ValidationError } from './miniValidator';
 import { SCHEMA_MAPPINGS, schemaForPath, jsonValidationContributions } from '../../src/features/schemas/schemaMap';
 import { checkVersionCompat } from '../../src/features/schemas/versionCheck';
@@ -36,7 +37,8 @@ function validateTree(dir: string): { count: number; failures: string[] } {
     // The vanilla client jar's own pack.mcmeta only declares languages (it isn't a user pack).
     if (path.basename(file) === 'pack.mcmeta' && !fs.readFileSync(file, 'utf8').includes('"pack"')) continue;
     count++;
-    const errors = check(schema, JSON.parse(fs.readFileSync(file, 'utf8')));
+    // Minecraft's JSON reader is lenient (vanilla has a few trailing commas).
+    const errors = check(schema, jsonc.parse(fs.readFileSync(file, 'utf8'), [], { allowTrailingComma: true }));
     if (errors.length) failures.push(`${path.relative(dir, file)} [${schema}]: ${errors.slice(0, 3).map((e) => `${e.path} ${e.message}`).join(' | ')}`);
   }
   return { count, failures };
