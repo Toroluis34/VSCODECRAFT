@@ -267,8 +267,23 @@ export function textValue(t: TextSpec, version: string): Val {
 export function normalizeAttribute(id: string, version: string): string {
   const full = fullId(id);
   if (componentFlags(version).consumable) return full.replace(/^minecraft:(generic|player|zombie)\./, 'minecraft:');
-  return full;
+  const m = /^minecraft:([a-z_]+)$/.exec(full);
+  if (!m) return full;
+  if (PLAYER_ATTRIBUTES.has(m[1])) return `minecraft:player.${m[1]}`;
+  if (m[1] === 'spawn_reinforcements') return 'minecraft:zombie.spawn_reinforcements';
+  return `minecraft:generic.${m[1]}`;
 }
+
+/** Attributes that used the "player." prefix before 1.21.2. */
+const PLAYER_ATTRIBUTES = new Set([
+  'block_break_speed',
+  'block_interaction_range',
+  'entity_interaction_range',
+  'mining_efficiency',
+  'sneaking_speed',
+  'submerged_mining_speed',
+  'sweeping_damage_ratio',
+]);
 
 function effectVal(e: EffectSpec): Record<string, Val> {
   const o: Record<string, Val> = { id: fullId(e.id) };

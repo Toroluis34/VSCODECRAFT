@@ -109,6 +109,9 @@ test('unbreakable, dyed colour, trim, attributes per version', () => {
   );
   assert.equal(normalizeAttribute('minecraft:generic.max_health', '1.21.2'), 'minecraft:max_health');
   assert.equal(normalizeAttribute('generic.max_health', '1.21.1'), 'minecraft:generic.max_health');
+  assert.equal(normalizeAttribute('minecraft:attack_damage', '1.21.1'), 'minecraft:generic.attack_damage');
+  assert.equal(normalizeAttribute('minecraft:block_interaction_range', '1.21.1'), 'minecraft:player.block_interaction_range');
+  assert.equal(normalizeAttribute('mymod:mana', '1.21.1'), 'mymod:mana');
   // duplicate generated ids get a suffix
   const two = buildComponents(sword({ attributes: [{ type: 'armor', amount: 1, operation: 'add_value', slot: 'head' }, { type: 'armor', amount: 2, operation: 'add_value', slot: 'head' }] }), '26.3');
   const ids = (toJsonValue(two.components['minecraft:attribute_modifiers']) as any[]).map((m) => m.id);
