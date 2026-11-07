@@ -1,0 +1,45 @@
+name: Release
+
+# Builds the extension and attaches the .vsix to a GitHub Release.
+# Trigger: push a tag like v0.1.0 (git tag v0.1.0 && git push origin v0.1.0),
+# or run it manually from the Actions tab.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v0.1.0)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Package .vsix
+        run: |
+          npm run build -- --production
+          npx vsce package --no-dependencies -o vscodecraft-${{ github.event.inputs.tag || github.ref_name }}.vsix
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: VSCodeCraft ${{ github.event.inputs.tag || github.ref_name }}
+          files: vscodecraft-*.vsix
+          generate_release_notes: true
+          body: |
+            ## Instalar / Install
+            1. Descarga `vscodecraft-*.vsix` de abajo.
+            2. En VS Code: **Ctrl+Shift+P** → `Extensions: Install from VSIX...` → elige el archivo.
+
+            O desde la terminal: `code --install-extension vscodecraft-<versión>.vsix`
