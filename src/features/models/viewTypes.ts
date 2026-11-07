@@ -118,6 +118,8 @@ export interface GeneratorInit {
   loader: string;
   hasItemDefinitions: boolean;
   resourceRoot?: string;
+  /** Prefilled id (path part), e.g. from a Java CodeLens. */
+  id?: string;
 }
 
 export interface GeneratorPreview {

@@ -88,6 +88,14 @@ const VARIANTS: [SetVariant, string][] = [
   ['pane', 'Pane'],
 ];
 
+function humanize(id: string): string {
+  return (id.split('/').pop() ?? id)
+    .split('_')
+    .filter(Boolean)
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
 function toId(name: string): string {
   return name
     .normalize('NFD')
@@ -140,8 +148,8 @@ function App() {
   const [form, setForm] = useState<GeneratorForm>({
     mode: init.mode,
     namespace: init.namespace,
-    id: '',
-    nameEn: '',
+    id: init.id ?? '',
+    nameEn: init.id ? humanize(init.id) : '',
     nameEs: '',
     itemParent: 'generated',
     template: 'cube_all',
@@ -157,7 +165,7 @@ function App() {
     tool: init.mode === 'block' ? 'pickaxe' : 'none',
     tier: 'none',
   });
-  const [idTouched, setIdTouched] = useState(false);
+  const [idTouched, setIdTouched] = useState(!!init.id);
   const [preview, setPreview] = useState<GeneratorPreview | null>(null);
   const [result, setResult] = useState<GeneratorResult | null>(null);
   const [busy, setBusy] = useState(false);

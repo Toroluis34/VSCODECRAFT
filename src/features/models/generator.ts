@@ -9,21 +9,27 @@ import { defaultColor, writePlan } from './writer';
 import type { ModelResolver } from './resolver';
 import type { GeneratorForm, GeneratorInit, GeneratorPreview, GeneratorResult, TextureOption } from './viewTypes';
 
+/** Command argument: a vscode.Uri (explorer context menu), {id: 'ns:name', uri} (Java CodeLens) or nothing. */
+type GeneratorArg = vscode.Uri | { id?: string; uri?: vscode.Uri } | undefined;
+
 export function registerGenerator(core: Core, resolver: ModelResolver): void {
-  core.registerCommand('vscodecraft.models.newItem', (uri?: vscode.Uri) => openGenerator(core, resolver, 'item', uri));
-  core.registerCommand('vscodecraft.models.newBlock', (uri?: vscode.Uri) => openGenerator(core, resolver, 'block', uri));
+  core.registerCommand('vscodecraft.models.newItem', (arg?: GeneratorArg) => openGenerator(core, resolver, 'item', arg));
+  core.registerCommand('vscodecraft.models.newBlock', (arg?: GeneratorArg) => openGenerator(core, resolver, 'block', arg));
 }
 
 function placeholderKind(form: GeneratorForm): 'item' | 'block' | 'cross' {
   return form.mode === 'item' ? 'item' : form.template === 'cross' ? 'cross' : 'block';
 }
 
-async function openGenerator(core: Core, resolver: ModelResolver, mode: 'item' | 'block', arg?: vscode.Uri): Promise<void> {
-  const ctxUri = arg instanceof vscode.Uri ? arg : vscode.window.activeTextEditor?.document.uri;
+async function openGenerator(core: Core, resolver: ModelResolver, mode: 'item' | 'block', arg?: GeneratorArg): Promise<void> {
+  const argUri = arg instanceof vscode.Uri ? arg : arg && typeof arg === 'object' && arg.uri instanceof vscode.Uri ? arg.uri : undefined;
+  const argId = arg && !(arg instanceof vscode.Uri) && typeof arg === 'object' && typeof arg.id === 'string' ? arg.id : undefined;
+  const ctxUri = argUri ?? vscode.window.activeTextEditor?.document.uri;
   const root = core.projects.resourceRoot(ctxUri);
   const project = core.projects.projectFor(ctxUri);
   const version = core.version(ctxUri);
-  const namespace = core.projects.defaultNamespace(ctxUri);
+  const prefill = argId ? (argId.includes(':') ? argId.split(':') : [undefined, argId]) : undefined;
+  const namespace = prefill?.[0] || core.projects.defaultNamespace(ctxUri);
   const init: GeneratorInit = {
     mode,
     namespace,
@@ -32,6 +38,7 @@ async function openGenerator(core: Core, resolver: ModelResolver, mode: 'item' |
     loader: project?.loader ?? 'unknown',
     hasItemDefinitions: core.features(ctxUri).hasItemDefinitions,
     resourceRoot: root ? vscode.workspace.asRelativePath(root) : undefined,
+    id: prefill?.[1],
   };
   const { host } = core.webviews.createPanel({
     viewType: 'vscodecraft.models.generator',

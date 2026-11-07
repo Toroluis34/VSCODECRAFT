@@ -65,7 +65,8 @@ function EntryRow(p: { entry: Entry; data: TagData; depth: number; onChange?: (o
   const { entry, data } = p;
   const [open, setOpen] = useState(false);
   const [children, setChildren] = useState<string[] | undefined>();
-  const name = useName(!entry.isTag && data.iconRegistry ? entry.id : undefined);
+  const rawName = useName(!entry.isTag && data.iconRegistry ? entry.id : undefined);
+  const name = rawName && rawName !== entry.id ? rawName : '';
   const toggle = async () => {
     if (!entry.isTag) return;
     if (!open && !children) {
@@ -168,7 +169,9 @@ function App() {
     <div class="tag-root">
       <style>{STYLE}</style>
       <div class="tag-header mc-row">
-        <EntryIcon id={`#${data.tagId}`} iconRegistry={data.iconRegistry} size={32} />
+        <span class="tag-generic" style={{ width: '32px', height: '32px', fontSize: '18px' }}>
+          #
+        </span>
         <div class="mc-col mc-grow" style={{ gap: '2px' }}>
           <h1>#{data.tagId}</h1>
           <div class="mc-row" style={{ gap: '6px' }}>
