@@ -75,6 +75,78 @@
         "icon": "$(refresh)"
       },
       {
+        "command": "vscodecraft.datapack.createPackMcmeta",
+        "title": "%datapack.createPackMcmeta%",
+        "category": "VSCodeCraft",
+        "icon": "$(package)"
+      },
+      {
+        "command": "vscodecraft.datapack.setSupportedVersions",
+        "title": "%datapack.setSupportedVersions%",
+        "category": "VSCodeCraft",
+        "icon": "$(versions)"
+      },
+      {
+        "command": "vscodecraft.datapack.addOverlay",
+        "title": "%datapack.addOverlay%",
+        "category": "VSCodeCraft",
+        "icon": "$(layers)"
+      },
+      {
+        "command": "vscodecraft.datapack.migrate",
+        "title": "%datapack.migrate%",
+        "category": "VSCodeCraft",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "vscodecraft.datapack.exportDatapack",
+        "title": "%datapack.exportDatapack%",
+        "category": "VSCodeCraft",
+        "icon": "$(file-zip)"
+      },
+      {
+        "command": "vscodecraft.datapack.exportResourcePack",
+        "title": "%datapack.exportResourcePack%",
+        "category": "VSCodeCraft",
+        "icon": "$(file-zip)"
+      },
+      {
+        "command": "vscodecraft.datapack.installToInstance",
+        "title": "%datapack.installToInstance%",
+        "category": "VSCodeCraft",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "vscodecraft.datapack.openTagEditor",
+        "title": "%datapack.openTagEditor%",
+        "category": "VSCodeCraft",
+        "icon": "$(tag)"
+      },
+      {
+        "command": "vscodecraft.datapack.addToTag",
+        "title": "%datapack.addToTag%",
+        "category": "VSCodeCraft",
+        "icon": "$(tag-add)"
+      },
+      {
+        "command": "vscodecraft.datapack.createTag",
+        "title": "%datapack.createTag%",
+        "category": "VSCodeCraft",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "vscodecraft.datapack.findTagUsages",
+        "title": "%datapack.findTagUsages%",
+        "category": "VSCodeCraft",
+        "icon": "$(references)"
+      },
+      {
+        "command": "vscodecraft.datapack.packDoctor",
+        "title": "%datapack.packDoctor%",
+        "category": "VSCodeCraft",
+        "icon": "$(checklist)"
+      },
+      {
         "command": "vscodecraft.explorer.refresh",
         "title": "%explorer.cmd.refresh%",
         "category": "VSCodeCraft",
@@ -472,6 +544,24 @@
           "default": "https://raw.githubusercontent.com/misode/mcmeta",
           "markdownDescription": "%core.config.baseUrl%"
         },
+        "vscodecraft.datapack.exportFolder": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "%datapack.config.exportFolder%"
+        },
+        "vscodecraft.datapack.instanceFolders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "markdownDescription": "%datapack.config.instanceFolders%"
+        },
+        "vscodecraft.datapack.pathDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "%datapack.config.pathDiagnostics%"
+        },
         "vscodecraft.explorer.codeLens": {
           "type": "boolean",
           "default": true,
@@ -550,61 +640,212 @@
         }
       }
     },
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "vscodecraft",
-          "title": "%explorer.container%",
-          "icon": "media/icons/vscodecraft.svg"
-        }
-      ]
-    },
-    "views": {
-      "vscodecraft": [
-        {
-          "id": "vscodecraft.project",
-          "name": "%explorer.view.project%",
-          "icon": "media/icons/vscodecraft.svg",
-          "contextualTitle": "VSCodeCraft"
-        },
-        {
-          "id": "vscodecraft.resources",
-          "name": "%explorer.view.resources%",
-          "icon": "media/icons/vscodecraft.svg",
-          "contextualTitle": "VSCodeCraft"
-        },
-        {
-          "id": "vscodecraft.vanilla",
-          "name": "%explorer.view.vanilla%",
-          "icon": "media/icons/vscodecraft.svg",
-          "contextualTitle": "VSCodeCraft",
-          "visibility": "collapsed"
-        }
-      ]
-    },
-    "viewsWelcome": [
-      {
-        "view": "vscodecraft.project",
-        "contents": "%explorer.welcome.noProject%",
-        "when": "!vscodecraft.hasProject"
-      }
-    ],
-    "snippets": [
-      {
-        "language": "java",
-        "path": "./snippets/java-minecraft.json"
-      },
-      {
-        "language": "kotlin",
-        "path": "./snippets/kotlin-minecraft.json"
-      },
-      {
-        "language": "json",
-        "path": "./snippets/json-minecraft.json"
-      }
-    ],
     "menus": {
+      "explorer/context": [
+        {
+          "command": "vscodecraft.datapack.openTagEditor",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]data[\\\\/][^\\\\/]+[\\\\/]tags[\\\\/]/",
+          "group": "vscodecraft@1"
+        },
+        {
+          "command": "vscodecraft.datapack.findTagUsages",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]data[\\\\/][^\\\\/]+[\\\\/]tags[\\\\/]/",
+          "group": "vscodecraft@2"
+        },
+        {
+          "command": "vscodecraft.datapack.createPackMcmeta",
+          "when": "resourceFilename == pack.mcmeta",
+          "group": "vscodecraft@3"
+        },
+        {
+          "command": "vscodecraft.datapack.exportDatapack",
+          "when": "resourceFilename == pack.mcmeta || explorerResourceIsFolder && resourceFilename == data",
+          "group": "vscodecraft@4"
+        },
+        {
+          "command": "vscodecraft.datapack.exportResourcePack",
+          "when": "resourceFilename == pack.mcmeta || explorerResourceIsFolder && resourceFilename == assets",
+          "group": "vscodecraft@5"
+        },
+        {
+          "command": "vscodecraft.datapack.migrate",
+          "when": "resourceFilename == pack.mcmeta || explorerResourceIsFolder && resourceFilename =~ /^(data|assets|resources)$/",
+          "group": "vscodecraft@6"
+        },
+        {
+          "command": "vscodecraft.datapack.addToTag",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/](models[\\\\/](item|block)|items|blockstates)[\\\\/]/",
+          "group": "vscodecraft@7"
+        },
+        {
+          "command": "vscodecraft.loot.openEditor",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/",
+          "group": "navigation@9"
+        },
+        {
+          "command": "vscodecraft.loot.newAdvancement",
+          "when": "explorerResourceIsFolder && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]advancements?([\\/\\\\]|$)/",
+          "group": "vscodecraft@1"
+        },
+        {
+          "command": "vscodecraft.models.openViewer",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/](models|blockstates|items)[\\\\/]/",
+          "group": "navigation@20"
+        },
+        {
+          "command": "vscodecraft.models.generateBlockSet",
+          "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]block[\\\\/]/",
+          "group": "vscodecraft@20"
+        },
+        {
+          "command": "vscodecraft.models.newItem",
+          "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/](resources|assets|data)([\\\\/]|$)/",
+          "group": "vscodecraft@10"
+        },
+        {
+          "command": "vscodecraft.models.newBlock",
+          "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/](resources|assets|data)([\\\\/]|$)/",
+          "group": "vscodecraft@11"
+        },
+        {
+          "command": "vscodecraft.recipes.new",
+          "when": "explorerResourceIsFolder && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?([\\/\\\\]|$)/",
+          "group": "vscodecraft@1"
+        },
+        {
+          "command": "vscodecraft.recipes.openEditor",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
+          "group": "navigation@9"
+        },
+        {
+          "command": "vscodecraft.textures.openEditor",
+          "when": "resourceExtname == .png",
+          "group": "navigation@20"
+        },
+        {
+          "command": "vscodecraft.textures.createVariant",
+          "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]/",
+          "group": "vscodecraft@20"
+        },
+        {
+          "command": "vscodecraft.textures.generateMcmeta",
+          "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]/",
+          "group": "vscodecraft@21"
+        },
+        {
+          "command": "vscodecraft.textures.newTexture",
+          "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/]textures([\\\\/]|$)/",
+          "group": "vscodecraft@22"
+        },
+        {
+          "command": "vscodecraft.translations.openLangEditor",
+          "when": "(resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/) || (explorerResourceIsFolder && resourceFilename == lang)",
+          "group": "vscodecraft@20"
+        },
+        {
+          "command": "vscodecraft.translations.findUnused",
+          "when": "(resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/) || (explorerResourceIsFolder && resourceFilename == lang)",
+          "group": "vscodecraft@21"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "vscodecraft.datapack.openTagEditor",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]data[\\\\/][^\\\\/]+[\\\\/]tags[\\\\/]/ && activeCustomEditorId != vscodecraft.datapack.tagEditor",
+          "group": "navigation@5"
+        },
+        {
+          "command": "vscodecraft.datapack.setSupportedVersions",
+          "when": "resourceFilename == pack.mcmeta",
+          "group": "navigation@5"
+        },
+        {
+          "command": "vscodecraft.loot.preview",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/ && activeCustomEditorId != vscodecraft.loot.editor",
+          "group": "navigation@41"
+        },
+        {
+          "command": "vscodecraft.loot.openSource",
+          "when": "activeCustomEditorId == vscodecraft.loot.editor",
+          "group": "navigation@41"
+        },
+        {
+          "command": "vscodecraft.loot.previewAdvancement",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]advancements?[\\/\\\\]/",
+          "group": "navigation@41"
+        },
+        {
+          "command": "vscodecraft.models.openViewer",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/](models|blockstates|items)[\\\\/]/ && activeEditor != vscodecraft.models.viewer",
+          "group": "navigation@20"
+        },
+        {
+          "command": "vscodecraft.recipes.openPreview",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/ && activeCustomEditorId != vscodecraft.recipeEditor",
+          "group": "navigation@40"
+        },
+        {
+          "command": "vscodecraft.recipes.openSource",
+          "when": "activeCustomEditorId == vscodecraft.recipeEditor",
+          "group": "navigation@40"
+        },
+        {
+          "command": "vscodecraft.textures.openEditor",
+          "when": "resourceExtname == .png && activeCustomEditorId != vscodecraft.textureEditor",
+          "group": "navigation@20"
+        },
+        {
+          "command": "vscodecraft.textures.createVariant",
+          "when": "activeCustomEditorId == vscodecraft.textureEditor",
+          "group": "navigation@21"
+        },
+        {
+          "command": "vscodecraft.translations.openLangEditor",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/ && activeCustomEditorId != vscodecraft.translations.langEditor",
+          "group": "navigation@20"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "vscodecraft.datapack.addToTag",
+          "when": "resourceLangId == json && resourcePath =~ /[\\\\/](data|assets)[\\\\/]/",
+          "group": "vscodecraft@2"
+        },
+        {
+          "command": "vscodecraft.loot.openEditor",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/",
+          "group": "vscodecraft@3"
+        },
+        {
+          "command": "vscodecraft.loot.give",
+          "when": "resourceExtname == .mcfunction",
+          "group": "vscodecraft@3"
+        },
+        {
+          "command": "vscodecraft.recipes.openEditor",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
+          "group": "vscodecraft@1"
+        },
+        {
+          "command": "vscodecraft.recipes.migrateFile",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
+          "group": "vscodecraft@2"
+        },
+        {
+          "command": "vscodecraft.translations.openTextEditor",
+          "when": "editorLangId =~ /^jsonc?$/ && resourcePath =~ /[\\\\/](data|assets)[\\\\/]/",
+          "group": "vscodecraft@20"
+        },
+        {
+          "command": "vscodecraft.translations.copyMissingToLocale",
+          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/",
+          "group": "vscodecraft@21"
+        }
+      ],
       "commandPalette": [
+        {
+          "command": "vscodecraft.datapack.findTagUsages"
+        },
         {
           "command": "vscodecraft.explorer.runAction",
           "when": "false"
@@ -813,157 +1054,6 @@
           "group": "inline"
         }
       ],
-      "editor/title": [
-        {
-          "command": "vscodecraft.loot.preview",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/ && activeCustomEditorId != vscodecraft.loot.editor",
-          "group": "navigation@41"
-        },
-        {
-          "command": "vscodecraft.loot.openSource",
-          "when": "activeCustomEditorId == vscodecraft.loot.editor",
-          "group": "navigation@41"
-        },
-        {
-          "command": "vscodecraft.loot.previewAdvancement",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]advancements?[\\/\\\\]/",
-          "group": "navigation@41"
-        },
-        {
-          "command": "vscodecraft.models.openViewer",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/](models|blockstates|items)[\\\\/]/ && activeEditor != vscodecraft.models.viewer",
-          "group": "navigation@20"
-        },
-        {
-          "command": "vscodecraft.recipes.openPreview",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/ && activeCustomEditorId != vscodecraft.recipeEditor",
-          "group": "navigation@40"
-        },
-        {
-          "command": "vscodecraft.recipes.openSource",
-          "when": "activeCustomEditorId == vscodecraft.recipeEditor",
-          "group": "navigation@40"
-        },
-        {
-          "command": "vscodecraft.textures.openEditor",
-          "when": "resourceExtname == .png && activeCustomEditorId != vscodecraft.textureEditor",
-          "group": "navigation@20"
-        },
-        {
-          "command": "vscodecraft.textures.createVariant",
-          "when": "activeCustomEditorId == vscodecraft.textureEditor",
-          "group": "navigation@21"
-        },
-        {
-          "command": "vscodecraft.translations.openLangEditor",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/ && activeCustomEditorId != vscodecraft.translations.langEditor",
-          "group": "navigation@20"
-        }
-      ],
-      "editor/context": [
-        {
-          "command": "vscodecraft.loot.openEditor",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/",
-          "group": "vscodecraft@3"
-        },
-        {
-          "command": "vscodecraft.loot.give",
-          "when": "resourceExtname == .mcfunction",
-          "group": "vscodecraft@3"
-        },
-        {
-          "command": "vscodecraft.recipes.openEditor",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
-          "group": "vscodecraft@1"
-        },
-        {
-          "command": "vscodecraft.recipes.migrateFile",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
-          "group": "vscodecraft@2"
-        },
-        {
-          "command": "vscodecraft.translations.openTextEditor",
-          "when": "editorLangId =~ /^jsonc?$/ && resourcePath =~ /[\\\\/](data|assets)[\\\\/]/",
-          "group": "vscodecraft@20"
-        },
-        {
-          "command": "vscodecraft.translations.copyMissingToLocale",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/",
-          "group": "vscodecraft@21"
-        }
-      ],
-      "explorer/context": [
-        {
-          "command": "vscodecraft.loot.openEditor",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/",
-          "group": "navigation@9"
-        },
-        {
-          "command": "vscodecraft.loot.newAdvancement",
-          "when": "explorerResourceIsFolder && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]advancements?([\\/\\\\]|$)/",
-          "group": "vscodecraft@1"
-        },
-        {
-          "command": "vscodecraft.models.openViewer",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/](models|blockstates|items)[\\\\/]/",
-          "group": "navigation@20"
-        },
-        {
-          "command": "vscodecraft.models.generateBlockSet",
-          "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]block[\\\\/]/",
-          "group": "vscodecraft@20"
-        },
-        {
-          "command": "vscodecraft.models.newItem",
-          "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/](resources|assets|data)([\\\\/]|$)/",
-          "group": "vscodecraft@10"
-        },
-        {
-          "command": "vscodecraft.models.newBlock",
-          "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/](resources|assets|data)([\\\\/]|$)/",
-          "group": "vscodecraft@11"
-        },
-        {
-          "command": "vscodecraft.recipes.new",
-          "when": "explorerResourceIsFolder && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?([\\/\\\\]|$)/",
-          "group": "vscodecraft@1"
-        },
-        {
-          "command": "vscodecraft.recipes.openEditor",
-          "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
-          "group": "navigation@9"
-        },
-        {
-          "command": "vscodecraft.textures.openEditor",
-          "when": "resourceExtname == .png",
-          "group": "navigation@20"
-        },
-        {
-          "command": "vscodecraft.textures.createVariant",
-          "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]/",
-          "group": "vscodecraft@20"
-        },
-        {
-          "command": "vscodecraft.textures.generateMcmeta",
-          "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]/",
-          "group": "vscodecraft@21"
-        },
-        {
-          "command": "vscodecraft.textures.newTexture",
-          "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/]textures([\\\\/]|$)/",
-          "group": "vscodecraft@22"
-        },
-        {
-          "command": "vscodecraft.translations.openLangEditor",
-          "when": "(resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/) || (explorerResourceIsFolder && resourceFilename == lang)",
-          "group": "vscodecraft@20"
-        },
-        {
-          "command": "vscodecraft.translations.findUnused",
-          "when": "(resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/) || (explorerResourceIsFolder && resourceFilename == lang)",
-          "group": "vscodecraft@21"
-        }
-      ],
       "editor/title/context": [
         {
           "command": "vscodecraft.textures.openEditor",
@@ -973,6 +1063,16 @@
       ]
     },
     "customEditors": [
+      {
+        "viewType": "vscodecraft.datapack.tagEditor",
+        "displayName": "%datapack.tagEditor%",
+        "selector": [
+          {
+            "filenamePattern": "**/data/*/tags/**/*.json"
+          }
+        ],
+        "priority": "option"
+      },
       {
         "viewType": "vscodecraft.loot.editor",
         "displayName": "%loot.editor.displayName%",
@@ -1038,10 +1138,85 @@
     ],
     "languages": [
       {
+        "id": "mcfunction",
+        "aliases": [
+          "mcfunction",
+          "Minecraft Function"
+        ],
+        "extensions": [
+          ".mcfunction"
+        ],
+        "configuration": "./syntaxes/mcfunction.language-configuration.json"
+      },
+      {
         "id": "json",
         "extensions": [
           ".mcmeta"
         ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mcfunction",
+        "scopeName": "source.mcfunction",
+        "path": "./syntaxes/mcfunction.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "mcfunction",
+        "path": "./snippets/mcfunction.json"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java-minecraft.json"
+      },
+      {
+        "language": "kotlin",
+        "path": "./snippets/kotlin-minecraft.json"
+      },
+      {
+        "language": "json",
+        "path": "./snippets/json-minecraft.json"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vscodecraft",
+          "title": "%explorer.container%",
+          "icon": "media/icons/vscodecraft.svg"
+        }
+      ]
+    },
+    "views": {
+      "vscodecraft": [
+        {
+          "id": "vscodecraft.project",
+          "name": "%explorer.view.project%",
+          "icon": "media/icons/vscodecraft.svg",
+          "contextualTitle": "VSCodeCraft"
+        },
+        {
+          "id": "vscodecraft.resources",
+          "name": "%explorer.view.resources%",
+          "icon": "media/icons/vscodecraft.svg",
+          "contextualTitle": "VSCodeCraft"
+        },
+        {
+          "id": "vscodecraft.vanilla",
+          "name": "%explorer.view.vanilla%",
+          "icon": "media/icons/vscodecraft.svg",
+          "contextualTitle": "VSCodeCraft",
+          "visibility": "collapsed"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "vscodecraft.project",
+        "contents": "%explorer.welcome.noProject%",
+        "when": "!vscodecraft.hasProject"
       }
     ],
     "jsonValidation": [

@@ -20,7 +20,7 @@ import { loadImage, renderVisual, textureFrame } from '../shared/itemRenderer';
 import { Button } from '../shared/components';
 
 const CSS = `
-.gen { display: grid; grid-template-columns: minmax(320px, 1fr) minmax(300px, 420px); gap: 16px; align-items: start; }
+.gen { display: grid; grid-template-columns: minmax(320px, 1fr) minmax(300px, 460px); gap: 16px; align-items: start; }
 @media (max-width: 760px) { .gen { grid-template-columns: 1fr; } }
 .gen h1 { margin-top: 0; display: flex; align-items: center; gap: 8px; }
 .gen-form { display: flex; flex-direction: column; gap: 12px; }
@@ -49,7 +49,7 @@ const CSS = `
 .act-skip, .act-skipped { background: rgba(128, 128, 128, .25); }
 .act-error { background: rgba(220, 80, 80, .35); }
 .gen-files a { cursor: pointer; }
-pre.gen-snippet { margin: 0; padding: 8px; max-height: 300px; overflow: auto; background: var(--vscode-textCodeBlock-background, rgba(128,128,128,.12)); border-radius: 4px; font-family: var(--vscode-editor-font-family, monospace); font-size: 0.85em; white-space: pre; }
+pre.gen-snippet { margin: 0; padding: 8px; max-height: 300px; overflow: auto; background: var(--vscode-textCodeBlock-background, rgba(128,128,128,.12)); border-radius: 4px; font-family: var(--vscode-editor-font-family, monospace); font-size: 0.85em; white-space: pre-wrap; overflow-wrap: anywhere; }
 .gen-errors { color: var(--vscode-errorForeground); }
 .gen-ids { display: flex; flex-wrap: wrap; gap: 4px; }
 `;
@@ -417,9 +417,9 @@ function App() {
           </div>
 
           <div class="mc-row">
-            <Button disabled={!valid || busy || !init.resourceRoot} onClick={() => void create()}>
+            <button class="mc-button" disabled={!valid || busy || !init.resourceRoot} onClick={() => void create()}>
               {busy ? t('Creating…') : isBlock ? t('Create block') : t('Create item')}
-            </Button>
+            </button>
             {error ? <span class="gen-errors">{error}</span> : null}
           </div>
         </div>

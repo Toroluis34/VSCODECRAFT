@@ -48,11 +48,6 @@
       "aliases": ["mcfunction", "Minecraft Function"],
       "extensions": [".mcfunction"],
       "configuration": "./syntaxes/mcfunction.language-configuration.json"
-    },
-    {
-      "id": "json",
-      "filenames": ["pack.mcmeta"],
-      "extensions": [".mcmeta"]
     }
   ],
   "grammars": [

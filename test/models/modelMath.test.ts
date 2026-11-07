@@ -155,3 +155,19 @@ test('png encoder', () => {
   assert.equal(crc32(new TextEncoder().encode('IEND')), 0xae426082);
   assert.equal(encodePng(1, 1, new Uint8Array([255, 0, 0, 255])).length > 50, true);
 });
+
+test('element rotation: classic and 26.x multi-axis', async () => {
+  const { applyElementRotation } = await import('../../src/features/models/modelMath');
+  const el: ResolvedElement = { from: [0, 0, 7], to: [16, 10, 9], faces: { north: { texture: { src: 'n' } } } };
+  assert.deepEqual(applyElementRotation(el, { origin: [8, 8, 8], axis: 'y', angle: 45 }).el.rotation, { origin: [8, 8, 8], axis: 'y', angle: 45, rescale: false });
+  // 180° around x is baked: the box flips vertically around the origin, north face becomes south
+  const flipped = applyElementRotation(el, { origin: [8, 8, 8], x: 180 }).el;
+  assert.deepEqual(flipped.from, [0, 6, 7]);
+  assert.deepEqual(flipped.to, [16, 16, 9]);
+  assert.equal(flipped.rotation, undefined);
+  assert.equal(flipped.faces.south?.texture?.src, 'n');
+  // x 180 + y -67.5: the free y angle remains, around the flipped axis (y -> -y)
+  const r = applyElementRotation(el, { origin: [8, 0, 8], x: 180, y: -67.5, z: -180 }).el;
+  assert.equal(r.rotation?.axis, 'y');
+  assert.equal(r.rotation?.angle, 67.5);
+});
