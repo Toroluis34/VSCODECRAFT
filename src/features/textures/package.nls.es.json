@@ -1,0 +1,10 @@
+{
+  "textures.editor.displayName": "Editor de texturas de Minecraft",
+  "textures.openEditor": "Abrir en el editor de texturas",
+  "textures.newTexture": "Nueva textura…",
+  "textures.createVariant": "Crear variante de material…",
+  "textures.generateMcmeta": "Generar .mcmeta de animación",
+  "textures.atlasOverview": "Vista general de texturas",
+  "textures.config.hoverPreview": "Muestra la imagen de la textura al pasar el ratón sobre ids de textura (`block/stone`, `mymod:item/ruby`) en archivos JSON.",
+  "textures.config.gutterIcons": "Muestra pequeños iconos de textura en el margen junto a las referencias de textura de los modelos JSON."
+}

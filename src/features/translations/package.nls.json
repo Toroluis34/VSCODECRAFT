@@ -1,0 +1,15 @@
+{
+  "translations.openLangEditor": "Open Lang Editor",
+  "translations.addMissing": "Add Missing Translations",
+  "translations.copyMissingToLocale": "Copy Missing Keys to Locale",
+  "translations.findUnused": "Find Unused Translation Keys",
+  "translations.openTextEditor": "Text Component Editor",
+  "translations.motdPreview": "MOTD Preview",
+  "translations.customEditor": "VSCodeCraft Lang Editor",
+  "translations.config.sortKeys": "Sort translation keys alphabetically whenever the Lang Editor or the translation commands write a lang file. When off, the existing key order is kept and new keys are placed next to their `en_us` neighbours.",
+  "translations.config.autoSave": "Save lang files automatically after edits made from the Lang Editor and translation commands (files open in a text editor stay unsaved).",
+  "translations.config.untranslatedMarker": "Prefix added to English text copied into other locales (e.g. `[TODO] `). Empty: copy the English text as-is; the Lang Editor highlights values identical to `en_us` as untranslated.",
+  "translations.config.hover": "Show hover previews of `§` formatted strings, JSON text components and the other locales of a key in lang files.",
+  "translations.config.colorPicker": "Show the colour picker for string colours (`\"color\": \"#RRGGBB\"` and named text colours) in resource JSON files.",
+  "translations.config.decorations": "Decorate `§` colour and formatting codes inside lang files."
+}

@@ -1,0 +1,377 @@
+{
+  "viewsContainers": {
+    "activitybar": [
+      {
+        "id": "vscodecraft",
+        "title": "%explorer.container%",
+        "icon": "media/icons/vscodecraft.svg"
+      }
+    ]
+  },
+  "views": {
+    "vscodecraft": [
+      {
+        "id": "vscodecraft.project",
+        "name": "%explorer.view.project%",
+        "icon": "media/icons/vscodecraft.svg",
+        "contextualTitle": "VSCodeCraft"
+      },
+      {
+        "id": "vscodecraft.resources",
+        "name": "%explorer.view.resources%",
+        "icon": "media/icons/vscodecraft.svg",
+        "contextualTitle": "VSCodeCraft"
+      },
+      {
+        "id": "vscodecraft.vanilla",
+        "name": "%explorer.view.vanilla%",
+        "icon": "media/icons/vscodecraft.svg",
+        "contextualTitle": "VSCodeCraft",
+        "visibility": "collapsed"
+      }
+    ]
+  },
+  "viewsWelcome": [
+    {
+      "view": "vscodecraft.project",
+      "contents": "%explorer.welcome.noProject%",
+      "when": "!vscodecraft.hasProject"
+    }
+  ],
+  "commands": [
+    {
+      "command": "vscodecraft.explorer.refresh",
+      "title": "%explorer.cmd.refresh%",
+      "category": "VSCodeCraft",
+      "icon": "$(refresh)"
+    },
+    {
+      "command": "vscodecraft.explorer.runAction",
+      "title": "%explorer.cmd.runAction%",
+      "category": "VSCodeCraft",
+      "icon": "$(play)"
+    },
+    {
+      "command": "vscodecraft.explorer.welcome",
+      "title": "%explorer.cmd.welcome%",
+      "category": "VSCodeCraft",
+      "icon": "$(rocket)"
+    },
+    {
+      "command": "vscodecraft.explorer.createDatapack",
+      "title": "%explorer.cmd.createDatapack%",
+      "category": "VSCodeCraft",
+      "icon": "$(new-folder)"
+    },
+    {
+      "command": "vscodecraft.explorer.createResourcePack",
+      "title": "%explorer.cmd.createResourcePack%",
+      "category": "VSCodeCraft",
+      "icon": "$(symbol-color)"
+    },
+    {
+      "command": "vscodecraft.explorer.createModProject",
+      "title": "%explorer.cmd.createModProject%",
+      "category": "VSCodeCraft",
+      "icon": "$(file-code)"
+    },
+    {
+      "command": "vscodecraft.explorer.copyText",
+      "title": "%explorer.cmd.copyText%",
+      "category": "VSCodeCraft",
+      "icon": "$(copy)"
+    },
+    {
+      "command": "vscodecraft.explorer.openResource",
+      "title": "%explorer.cmd.openResource%",
+      "category": "VSCodeCraft",
+      "icon": "$(go-to-file)"
+    },
+    {
+      "command": "vscodecraft.explorer.revealResource",
+      "title": "%explorer.cmd.revealResource%",
+      "category": "VSCodeCraft",
+      "icon": "$(folder-opened)"
+    },
+    {
+      "command": "vscodecraft.explorer.copyResourceId",
+      "title": "%explorer.cmd.copyResourceId%",
+      "category": "VSCodeCraft",
+      "icon": "$(copy)"
+    },
+    {
+      "command": "vscodecraft.explorer.deleteResource",
+      "title": "%explorer.cmd.deleteResource%",
+      "category": "VSCodeCraft",
+      "icon": "$(trash)"
+    },
+    {
+      "command": "vscodecraft.explorer.renameResource",
+      "title": "%explorer.cmd.renameResource%",
+      "category": "VSCodeCraft",
+      "icon": "$(edit)"
+    },
+    {
+      "command": "vscodecraft.explorer.filterResources",
+      "title": "%explorer.cmd.filterResources%",
+      "category": "VSCodeCraft",
+      "icon": "$(filter)"
+    },
+    {
+      "command": "vscodecraft.explorer.clearResourceFilter",
+      "title": "%explorer.cmd.clearResourceFilter%",
+      "category": "VSCodeCraft",
+      "icon": "$(clear-all)"
+    },
+    {
+      "command": "vscodecraft.explorer.filterVanilla",
+      "title": "%explorer.cmd.filterVanilla%",
+      "category": "VSCodeCraft",
+      "icon": "$(filter)"
+    },
+    {
+      "command": "vscodecraft.explorer.clearVanillaFilter",
+      "title": "%explorer.cmd.clearVanillaFilter%",
+      "category": "VSCodeCraft",
+      "icon": "$(clear-all)"
+    },
+    {
+      "command": "vscodecraft.explorer.vanillaRefresh",
+      "title": "%explorer.cmd.vanillaRefresh%",
+      "category": "VSCodeCraft",
+      "icon": "$(refresh)"
+    },
+    {
+      "command": "vscodecraft.explorer.vanillaOpen",
+      "title": "%explorer.cmd.vanillaOpen%",
+      "category": "VSCodeCraft",
+      "icon": "$(go-to-file)"
+    },
+    {
+      "command": "vscodecraft.explorer.vanillaCopyId",
+      "title": "%explorer.cmd.vanillaCopyId%",
+      "category": "VSCodeCraft",
+      "icon": "$(copy)"
+    },
+    {
+      "command": "vscodecraft.explorer.vanillaCopyToMod",
+      "title": "%explorer.cmd.vanillaCopyToMod%",
+      "category": "VSCodeCraft",
+      "icon": "$(add)"
+    },
+    {
+      "command": "vscodecraft.explorer.assetActions",
+      "title": "%explorer.cmd.assetActions%",
+      "category": "VSCodeCraft",
+      "icon": "$(list-unordered)"
+    },
+    {
+      "command": "vscodecraft.explorer.createAsset",
+      "title": "%explorer.cmd.createAsset%",
+      "category": "VSCodeCraft",
+      "icon": "$(add)"
+    }
+  ],
+  "configuration": {
+    "properties": {
+      "vscodecraft.explorer.codeLens": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%explorer.config.codeLens%"
+      }
+    }
+  },
+  "snippets": [
+    {
+      "language": "java",
+      "path": "./snippets/java-minecraft.json"
+    },
+    {
+      "language": "kotlin",
+      "path": "./snippets/kotlin-minecraft.json"
+    }
+  ],
+  "menus": {
+    "commandPalette": [
+      {
+        "command": "vscodecraft.explorer.runAction",
+        "when": "false"
+      },
+      {
+        "command": "vscodecraft.explorer.copyText",
+        "when": "false"
+      },
+      {
+        "command": "vscodecraft.explorer.openResource",
+        "when": "false"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaOpen",
+        "when": "false"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaCopyId",
+        "when": "false"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaCopyToMod",
+        "when": "false"
+      },
+      {
+        "command": "vscodecraft.explorer.assetActions",
+        "when": "false"
+      },
+      {
+        "command": "vscodecraft.explorer.createAsset",
+        "when": "false"
+      },
+      {
+        "command": "vscodecraft.explorer.clearResourceFilter",
+        "when": "vscodecraft.explorer.resourcesFiltered"
+      },
+      {
+        "command": "vscodecraft.explorer.clearVanillaFilter",
+        "when": "vscodecraft.explorer.vanillaFiltered"
+      }
+    ],
+    "view/title": [
+      {
+        "command": "vscodecraft.explorer.welcome",
+        "when": "view == vscodecraft.project",
+        "group": "navigation@1"
+      },
+      {
+        "command": "vscodecraft.explorer.refresh",
+        "when": "view == vscodecraft.project",
+        "group": "navigation@2"
+      },
+      {
+        "command": "vscodecraft.explorer.createDatapack",
+        "when": "view == vscodecraft.project",
+        "group": "1_create@1"
+      },
+      {
+        "command": "vscodecraft.explorer.createResourcePack",
+        "when": "view == vscodecraft.project",
+        "group": "1_create@2"
+      },
+      {
+        "command": "vscodecraft.explorer.createModProject",
+        "when": "view == vscodecraft.project",
+        "group": "1_create@3"
+      },
+      {
+        "command": "vscodecraft.selectVersion",
+        "when": "view == vscodecraft.project",
+        "group": "2_version@1"
+      },
+      {
+        "command": "vscodecraft.explorer.filterResources",
+        "when": "view == vscodecraft.resources",
+        "group": "navigation@1"
+      },
+      {
+        "command": "vscodecraft.explorer.clearResourceFilter",
+        "when": "view == vscodecraft.resources && vscodecraft.explorer.resourcesFiltered",
+        "group": "navigation@2"
+      },
+      {
+        "command": "vscodecraft.explorer.refresh",
+        "when": "view == vscodecraft.resources",
+        "group": "navigation@3"
+      },
+      {
+        "command": "vscodecraft.explorer.filterVanilla",
+        "when": "view == vscodecraft.vanilla",
+        "group": "navigation@1"
+      },
+      {
+        "command": "vscodecraft.explorer.clearVanillaFilter",
+        "when": "view == vscodecraft.vanilla && vscodecraft.explorer.vanillaFiltered",
+        "group": "navigation@2"
+      },
+      {
+        "command": "vscodecraft.selectVersion",
+        "when": "view == vscodecraft.vanilla",
+        "group": "navigation@3"
+      },
+      {
+        "command": "vscodecraft.downloadData",
+        "when": "view == vscodecraft.vanilla",
+        "group": "navigation@4"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaRefresh",
+        "when": "view == vscodecraft.vanilla",
+        "group": "1_refresh"
+      }
+    ],
+    "view/item/context": [
+      {
+        "command": "vscodecraft.explorer.copyResourceId",
+        "when": "view == vscodecraft.resources && viewItem =~ /^vscodecraft\\.resource/",
+        "group": "inline"
+      },
+      {
+        "command": "vscodecraft.explorer.openResource",
+        "when": "view == vscodecraft.resources && viewItem =~ /^vscodecraft\\.resource/",
+        "group": "1_open@1"
+      },
+      {
+        "command": "vscodecraft.explorer.revealResource",
+        "when": "view == vscodecraft.resources && viewItem =~ /^vscodecraft\\.resource/",
+        "group": "1_open@2"
+      },
+      {
+        "command": "vscodecraft.explorer.copyResourceId",
+        "when": "view == vscodecraft.resources && viewItem =~ /^vscodecraft\\.resource/",
+        "group": "2_copy@1"
+      },
+      {
+        "command": "vscodecraft.explorer.renameResource",
+        "when": "view == vscodecraft.resources && viewItem =~ /^vscodecraft\\.resource/",
+        "group": "3_edit@1"
+      },
+      {
+        "command": "vscodecraft.explorer.deleteResource",
+        "when": "view == vscodecraft.resources && viewItem =~ /^vscodecraft\\.resource/",
+        "group": "3_edit@2"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaCopyId",
+        "when": "view == vscodecraft.vanilla && viewItem =~ /^vscodecraft\\.vanilla\\.(file|entry)$/",
+        "group": "inline@1"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaCopyToMod",
+        "when": "view == vscodecraft.vanilla && viewItem == vscodecraft.vanilla.file",
+        "group": "inline@2"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaOpen",
+        "when": "view == vscodecraft.vanilla && viewItem =~ /^vscodecraft\\.vanilla\\.(file|entry)$/",
+        "group": "1_open@1"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaCopyId",
+        "when": "view == vscodecraft.vanilla && viewItem =~ /^vscodecraft\\.vanilla\\.(file|entry)$/",
+        "group": "2_copy@1"
+      },
+      {
+        "command": "vscodecraft.explorer.vanillaCopyToMod",
+        "when": "view == vscodecraft.vanilla && viewItem == vscodecraft.vanilla.file",
+        "group": "2_copy@2"
+      },
+      {
+        "command": "vscodecraft.explorer.copyText",
+        "when": "view == vscodecraft.project && viewItem == vscodecraft.project.copyable",
+        "group": "inline"
+      },
+      {
+        "command": "vscodecraft.selectVersion",
+        "when": "view == vscodecraft.project && viewItem == vscodecraft.project.version",
+        "group": "inline"
+      }
+    ]
+  }
+}

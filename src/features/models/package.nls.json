@@ -1,0 +1,8 @@
+{
+  "models.openViewer": "Open Model Viewer",
+  "models.newItem": "New Item…",
+  "models.newBlock": "New Block…",
+  "models.generateBlockSet": "Generate Block Model Set (stairs, slab, wall…)",
+  "models.migrateItemDefinitions": "Create Item Model Definitions from Item Models (1.21.4+)",
+  "models.viewer.displayName": "Minecraft Model Viewer"
+}

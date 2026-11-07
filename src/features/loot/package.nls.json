@@ -1,0 +1,12 @@
+{
+  "loot.preview": "Preview Loot Table",
+  "loot.openEditor": "Open with Loot Table Editor",
+  "loot.openSource": "Open Loot Table as JSON",
+  "loot.openVanilla": "Open Vanilla Loot Table…",
+  "loot.copyToMod": "Copy Vanilla Loot Table to My Mod",
+  "loot.advancementTree": "Advancement Tree",
+  "loot.previewAdvancement": "Preview Advancement",
+  "loot.newAdvancement": "New Advancement…",
+  "loot.give": "Give / Item Builder",
+  "loot.editor.displayName": "Loot Table Editor (VSCodeCraft)"
+}

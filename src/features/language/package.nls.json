@@ -1,0 +1,8 @@
+{
+  "language.validateWorkspace": "Validate Workspace Resources (ids, tags, models, textures)",
+  "language.renameLegacyFolder": "Rename Legacy Folder to the 1.21+ Name",
+  "language.createResource": "Create Missing Resource",
+  "language.config.diagnostics": "Check resource locations in data pack / resource pack JSON (unknown items, blocks, tags, missing models and textures, legacy folders, ingredient format).",
+  "language.config.validateWorkspace": "Validate every data/assets JSON file of the workspace when the index is ready (not only open files).",
+  "language.config.strictUnknownNamespaces": "Also report unknown ids in namespaces that the workspace does not own (e.g. `create:...` from other mods). Off by default to avoid false positives."
+}

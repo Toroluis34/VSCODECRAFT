@@ -1,0 +1,230 @@
+{
+  "commands": [
+    {
+      "command": "vscodecraft.schemas.validateAll",
+      "title": "%schemas.validateAll%",
+      "category": "VSCodeCraft",
+      "icon": "$(checklist)"
+    }
+  ],
+  "languages": [
+    {
+      "id": "json",
+      "extensions": [
+        ".mcmeta"
+      ]
+    }
+  ],
+  "jsonValidation": [
+    {
+      "fileMatch": [
+        "**/data/*/recipe/**/*.json",
+        "**/data/*/recipes/**/*.json"
+      ],
+      "url": "./schemas/minecraft/recipe.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/loot_table/**/*.json",
+        "**/data/*/loot_tables/**/*.json"
+      ],
+      "url": "./schemas/minecraft/loot_table.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/predicate/**/*.json",
+        "**/data/*/predicates/**/*.json"
+      ],
+      "url": "./schemas/minecraft/predicate.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/item_modifier/**/*.json",
+        "**/data/*/item_modifiers/**/*.json"
+      ],
+      "url": "./schemas/minecraft/item_modifier.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/advancement/**/*.json",
+        "**/data/*/advancements/**/*.json"
+      ],
+      "url": "./schemas/minecraft/advancement.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/tags/**/*.json"
+      ],
+      "url": "./schemas/minecraft/tag.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/enchantment/**/*.json"
+      ],
+      "url": "./schemas/minecraft/enchantment.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/damage_type/**/*.json"
+      ],
+      "url": "./schemas/minecraft/damage_type.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/trim_material/**/*.json"
+      ],
+      "url": "./schemas/minecraft/trim_material.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/trim_pattern/**/*.json"
+      ],
+      "url": "./schemas/minecraft/trim_pattern.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/painting_variant/**/*.json"
+      ],
+      "url": "./schemas/minecraft/painting_variant.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/jukebox_song/**/*.json"
+      ],
+      "url": "./schemas/minecraft/jukebox_song.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/banner_pattern/**/*.json"
+      ],
+      "url": "./schemas/minecraft/banner_pattern.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/instrument/**/*.json"
+      ],
+      "url": "./schemas/minecraft/instrument.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/wolf_variant/**/*.json",
+        "**/data/*/cat_variant/**/*.json",
+        "**/data/*/pig_variant/**/*.json",
+        "**/data/*/cow_variant/**/*.json",
+        "**/data/*/chicken_variant/**/*.json",
+        "**/data/*/frog_variant/**/*.json",
+        "**/data/*/zombie_nautilus_variant/**/*.json"
+      ],
+      "url": "./schemas/minecraft/mob_variant.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/dimension_type/**/*.json"
+      ],
+      "url": "./schemas/minecraft/dimension_type.json"
+    },
+    {
+      "fileMatch": [
+        "**/data/*/worldgen/biome/**/*.json"
+      ],
+      "url": "./schemas/minecraft/biome.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/models/**/*.json",
+        "!**/assets/*/models/equipment/**"
+      ],
+      "url": "./schemas/minecraft/model.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/items/**/*.json"
+      ],
+      "url": "./schemas/minecraft/item_definition.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/blockstates/**/*.json"
+      ],
+      "url": "./schemas/minecraft/blockstate.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/lang/*.json",
+        "!**/assets/*/lang/deprecated.json"
+      ],
+      "url": "./schemas/minecraft/lang.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/atlases/**/*.json"
+      ],
+      "url": "./schemas/minecraft/atlas.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/font/**/*.json"
+      ],
+      "url": "./schemas/minecraft/font.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/equipment/**/*.json",
+        "**/assets/*/models/equipment/**/*.json"
+      ],
+      "url": "./schemas/minecraft/equipment.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/particles/**/*.json"
+      ],
+      "url": "./schemas/minecraft/particle.json"
+    },
+    {
+      "fileMatch": [
+        "**/assets/*/sounds.json"
+      ],
+      "url": "./schemas/minecraft/sounds.json"
+    },
+    {
+      "fileMatch": [
+        "**/pack.mcmeta"
+      ],
+      "url": "./schemas/minecraft/pack_mcmeta.json"
+    },
+    {
+      "fileMatch": [
+        "**/*.png.mcmeta"
+      ],
+      "url": "./schemas/minecraft/texture_mcmeta.json"
+    },
+    {
+      "fileMatch": [
+        "**/fabric.mod.json"
+      ],
+      "url": "./schemas/minecraft/fabric_mod.json"
+    },
+    {
+      "fileMatch": [
+        "**/quilt.mod.json"
+      ],
+      "url": "./schemas/minecraft/quilt_mod.json"
+    }
+  ],
+  "snippets": [
+    {
+      "language": "json",
+      "path": "./snippets/json-minecraft.json"
+    }
+  ],
+  "configuration": {
+    "properties": {
+      "vscodecraft.schemas.versionChecks": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%schemas.config.versionChecks%",
+        "scope": "resource"
+      }
+    }
+  }
+}

@@ -1,0 +1,617 @@
+{
+  "Fabric: mod main class (ModInitializer)": {
+    "prefix": [
+      "fabric-mod-main"
+    ],
+    "description": "Fabric main entrypoint (declare it under entrypoints.main in fabric.mod.json). Identifier = 1.21.11+/26.x, ResourceLocation = 1.21–1.21.10 (Mojang mappings).",
+    "body": [
+      "package ${1:com.example.mymod};",
+      "",
+      "import net.fabricmc.api.ModInitializer;",
+      "import net.minecraft.resources.${2|Identifier,ResourceLocation|};",
+      "import org.slf4j.Logger;",
+      "import org.slf4j.LoggerFactory;",
+      "",
+      "public class ${3:${TM_FILENAME_BASE}} implements ModInitializer {",
+      "\tpublic static final String MOD_ID = \"${4:mymod}\";",
+      "\tpublic static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);",
+      "",
+      "\t@Override",
+      "\tpublic void onInitialize() {",
+      "\t\t$0",
+      "\t\tLOGGER.info(\"Hello from {}!\", MOD_ID);",
+      "\t}",
+      "",
+      "\tpublic static ${2} id(String path) {",
+      "\t\treturn ${2}.fromNamespaceAndPath(MOD_ID, path);",
+      "\t}",
+      "}"
+    ]
+  },
+  "Fabric: client entrypoint (ClientModInitializer)": {
+    "prefix": [
+      "fabric-client-main"
+    ],
+    "description": "Fabric client entrypoint (entrypoints.client in fabric.mod.json; src/client/java with split source sets).",
+    "body": [
+      "package ${1:com.example.mymod.client};",
+      "",
+      "import net.fabricmc.api.ClientModInitializer;",
+      "",
+      "public class ${2:${TM_FILENAME_BASE}} implements ClientModInitializer {",
+      "\t@Override",
+      "\tpublic void onInitializeClient() {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "Fabric: items class with register helper (1.21.2+ / 26.x)": {
+    "prefix": [
+      "fabric-items",
+      "fabric-item-register"
+    ],
+    "description": "ModItems with a register helper. Since 1.21.2 Item.Properties must get the item's ResourceKey via setId() BEFORE the item is constructed.",
+    "body": [
+      "import java.util.function.Function;",
+      "import net.minecraft.core.Registry;",
+      "import net.minecraft.core.registries.BuiltInRegistries;",
+      "import net.minecraft.core.registries.Registries;",
+      "import net.minecraft.resources.ResourceKey;",
+      "import net.minecraft.world.item.Item;",
+      "",
+      "public final class ${1:ModItems} {",
+      "\tpublic static final Item ${2:RUBY} = register(\"${3:ruby}\", Item::new, new Item.Properties()$4);",
+      "",
+      "\tpublic static Item register(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {",
+      "\t\tResourceKey<Item> key = ResourceKey.create(Registries.ITEM, ${5:MyMod}.id(name));",
+      "\t\t// 1.21.2+: the id must be set on the properties before constructing the item",
+      "\t\tItem item = factory.apply(properties.setId(key));",
+      "\t\treturn Registry.register(BuiltInRegistries.ITEM, key, item);",
+      "\t}",
+      "",
+      "\tpublic static void init() {",
+      "\t\t// Called from onInitialize() to load this class",
+      "\t}",
+      "}"
+    ]
+  },
+  "Fabric: item field (1.21.2+ / 26.x)": {
+    "prefix": [
+      "fabric-item"
+    ],
+    "description": "Register one more item with the ModItems.register helper (fabric-items).",
+    "body": [
+      "public static final Item ${1:RUBY} = register(\"${2:ruby}\", ${3:Item}::new, new Item.Properties()${4:.stacksTo(64)});"
+    ]
+  },
+  "Fabric: items class (1.21 – 1.21.1)": {
+    "prefix": [
+      "fabric-items-1.21.1"
+    ],
+    "description": "ModItems for 1.21/1.21.1: no setId() on Item.Properties yet.",
+    "body": [
+      "import net.minecraft.core.Registry;",
+      "import net.minecraft.core.registries.BuiltInRegistries;",
+      "import net.minecraft.resources.ResourceLocation;",
+      "import net.minecraft.world.item.Item;",
+      "",
+      "public final class ${1:ModItems} {",
+      "\tpublic static final Item ${2:RUBY} = register(\"${3:ruby}\", new Item(new Item.Properties()$4));",
+      "",
+      "\tprivate static Item register(String name, Item item) {",
+      "\t\treturn Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(${5:MyMod}.MOD_ID, name), item);",
+      "\t}",
+      "",
+      "\tpublic static void init() {}",
+      "}"
+    ]
+  },
+  "Fabric: block + block item (1.21.2+ / 26.x)": {
+    "prefix": [
+      "fabric-block",
+      "fabric-blocks"
+    ],
+    "description": "ModBlocks with a register helper that also registers the BlockItem. 1.21.2+: setId() on both properties; useBlockDescriptionPrefix() makes the item use the block's translation key.",
+    "body": [
+      "import java.util.function.Function;",
+      "import net.minecraft.core.Registry;",
+      "import net.minecraft.core.registries.BuiltInRegistries;",
+      "import net.minecraft.core.registries.Registries;",
+      "import net.minecraft.resources.ResourceKey;",
+      "import net.minecraft.world.item.BlockItem;",
+      "import net.minecraft.world.item.Item;",
+      "import net.minecraft.world.level.block.Block;",
+      "import net.minecraft.world.level.block.SoundType;",
+      "import net.minecraft.world.level.block.state.BlockBehaviour;",
+      "",
+      "public final class ${1:ModBlocks} {",
+      "\tpublic static final Block ${2:RUBY_BLOCK} = register(\"${3:ruby_block}\", Block::new,",
+      "\t\t\tBlockBehaviour.Properties.of().strength(${4:5.0f}).sound(SoundType.${5:METAL}).requiresCorrectToolForDrops(), true);",
+      "",
+      "\tprivate static Block register(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties properties, boolean withItem) {",
+      "\t\tResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, ${6:MyMod}.id(name));",
+      "\t\tBlock block = factory.apply(properties.setId(key));",
+      "\t\tif (withItem) {",
+      "\t\t\tResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, ${6}.id(name));",
+      "\t\t\tBlockItem item = new BlockItem(block, new Item.Properties().setId(itemKey).useBlockDescriptionPrefix());",
+      "\t\t\tRegistry.register(BuiltInRegistries.ITEM, itemKey, item);",
+      "\t\t}",
+      "\t\treturn Registry.register(BuiltInRegistries.BLOCK, key, block);",
+      "\t}",
+      "",
+      "\tpublic static void init() {}",
+      "}"
+    ]
+  },
+  "Fabric: block + block item (1.21 – 1.21.1)": {
+    "prefix": [
+      "fabric-block-1.21.1"
+    ],
+    "description": "ModBlocks for 1.21/1.21.1 (no setId).",
+    "body": [
+      "import net.minecraft.core.Registry;",
+      "import net.minecraft.core.registries.BuiltInRegistries;",
+      "import net.minecraft.resources.ResourceLocation;",
+      "import net.minecraft.world.item.BlockItem;",
+      "import net.minecraft.world.item.Item;",
+      "import net.minecraft.world.level.block.Block;",
+      "import net.minecraft.world.level.block.state.BlockBehaviour;",
+      "",
+      "public final class ${1:ModBlocks} {",
+      "\tpublic static final Block ${2:RUBY_BLOCK} = register(\"${3:ruby_block}\", new Block(BlockBehaviour.Properties.of().strength(${4:5.0f}).requiresCorrectToolForDrops()));",
+      "",
+      "\tprivate static Block register(String name, Block block) {",
+      "\t\tResourceLocation id = ResourceLocation.fromNamespaceAndPath(${5:MyMod}.MOD_ID, name);",
+      "\t\tRegistry.register(BuiltInRegistries.ITEM, id, new BlockItem(block, new Item.Properties()));",
+      "\t\treturn Registry.register(BuiltInRegistries.BLOCK, id, block);",
+      "\t}",
+      "",
+      "\tpublic static void init() {}",
+      "}"
+    ]
+  },
+  "Fabric: BlockItem (1.21.2+ / 26.x)": {
+    "prefix": [
+      "fabric-blockitem"
+    ],
+    "description": "Register a BlockItem for an existing block (1.21.2+: setId + useBlockDescriptionPrefix).",
+    "body": [
+      "public static final Item ${1:RUBY_BLOCK_ITEM} = Registry.register(BuiltInRegistries.ITEM, ResourceKey.create(Registries.ITEM, ${2:MyMod}.id(\"${3:ruby_block}\")),",
+      "\t\tnew BlockItem(${4:ModBlocks.RUBY_BLOCK}, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ${2}.id(\"${3}\"))).useBlockDescriptionPrefix()));"
+    ]
+  },
+  "Fabric: creative tab (1.21.x)": {
+    "prefix": [
+      "fabric-creative-tab",
+      "fabric-item-group"
+    ],
+    "description": "Custom creative mode tab with Fabric API's FabricItemGroup (Mojang mappings, 1.21 – 1.21.11). Add \"itemGroup.<modid>.<name>\" to your lang file.",
+    "body": [
+      "public static final ResourceKey<CreativeModeTab> ${1:MAIN_TAB_KEY} = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ${2:MyMod}.id(\"${3:main}\"));",
+      "public static final CreativeModeTab ${4:MAIN_TAB} = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ${1},",
+      "\t\tFabricItemGroup.builder()",
+      "\t\t\t\t.icon(() -> new ItemStack(${5:ModItems.RUBY}))",
+      "\t\t\t\t.title(Component.translatable(\"itemGroup.${6:mymod}.${3}\"))",
+      "\t\t\t\t.displayItems((parameters, output) -> {",
+      "\t\t\t\t\toutput.accept(${5});$0",
+      "\t\t\t\t})",
+      "\t\t\t\t.build());"
+    ]
+  },
+  "Fabric: creative tab (26.x)": {
+    "prefix": [
+      "fabric-creative-tab-26"
+    ],
+    "description": "Custom creative mode tab with Fabric API 26.x names (net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab).",
+    "body": [
+      "public static final ResourceKey<CreativeModeTab> ${1:MAIN_TAB_KEY} = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ${2:MyMod}.id(\"${3:main}\"));",
+      "public static final CreativeModeTab ${4:MAIN_TAB} = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ${1},",
+      "\t\tFabricCreativeModeTab.builder()",
+      "\t\t\t\t.icon(() -> new ItemStack(${5:ModItems.RUBY}))",
+      "\t\t\t\t.title(Component.translatable(\"itemGroup.${6:mymod}.${3}\"))",
+      "\t\t\t\t.displayItems((parameters, output) -> {",
+      "\t\t\t\t\toutput.accept(${5});$0",
+      "\t\t\t\t})",
+      "\t\t\t\t.build());"
+    ]
+  },
+  "Fabric: add items to a vanilla tab (ItemGroupEvents, 1.21.x)": {
+    "prefix": [
+      "fabric-itemgroup-events"
+    ],
+    "description": "Append items to a vanilla creative tab with ItemGroupEvents (Fabric API for 1.21 – 1.21.11).",
+    "body": [
+      "ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.${1|INGREDIENTS,BUILDING_BLOCKS,COLORED_BLOCKS,NATURAL_BLOCKS,FUNCTIONAL_BLOCKS,REDSTONE_BLOCKS,TOOLS_AND_UTILITIES,COMBAT,FOOD_AND_DRINKS,SPAWN_EGGS|})",
+      "\t\t.register(entries -> entries.accept(${2:ModItems.RUBY}));"
+    ]
+  },
+  "Fabric: add items to a vanilla tab (CreativeModeTabEvents, 26.x)": {
+    "prefix": [
+      "fabric-creative-tab-events-26"
+    ],
+    "description": "Fabric API 26.x: CreativeModeTabEvents.modifyOutputEvent replaces ItemGroupEvents.modifyEntriesEvent.",
+    "body": [
+      "CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.${1|INGREDIENTS,BUILDING_BLOCKS,COLORED_BLOCKS,NATURAL_BLOCKS,FUNCTIONAL_BLOCKS,REDSTONE_BLOCKS,TOOLS_AND_UTILITIES,COMBAT,FOOD_AND_DRINKS,SPAWN_EGGS|})",
+      "\t\t.register(output -> output.accept(${2:ModItems.RUBY}));"
+    ]
+  },
+  "Fabric: data component type": {
+    "prefix": [
+      "fabric-data-component"
+    ],
+    "description": "Register a custom DataComponentType (persistent + synced to clients).",
+    "body": [
+      "public static final DataComponentType<${1:Integer}> ${2:CHARGE} = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, ${3:MyMod}.id(\"${4:charge}\"),",
+      "\t\tDataComponentType.<${1}>builder().persistent(${5:Codec.INT}).networkSynchronized(${6:ByteBufCodecs.VAR_INT}).build());"
+    ]
+  },
+  "Fabric: block entity type": {
+    "prefix": [
+      "fabric-block-entity-type"
+    ],
+    "description": "Register a BlockEntityType with Fabric API's FabricBlockEntityTypeBuilder.",
+    "body": [
+      "public static final BlockEntityType<${1:MyBlockEntity}> ${2:MY_BLOCK_ENTITY} = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, ${3:MyMod}.id(\"${4:my_block_entity}\"),",
+      "\t\tFabricBlockEntityTypeBuilder.create(${1}::new, ${5:ModBlocks.MY_BLOCK}).build());"
+    ]
+  },
+  "Fabric: data generator entrypoint": {
+    "prefix": [
+      "fabric-datagen"
+    ],
+    "description": "DataGeneratorEntrypoint (declare it under entrypoints.\"fabric-datagen\" in fabric.mod.json and enable fabricApi.configureDataGeneration() in build.gradle).",
+    "body": [
+      "import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;",
+      "import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;",
+      "",
+      "public class ${1:${TM_FILENAME_BASE}} implements DataGeneratorEntrypoint {",
+      "\t@Override",
+      "\tpublic void onInitializeDataGenerator(FabricDataGenerator generator) {",
+      "\t\tFabricDataGenerator.Pack pack = generator.createPack();",
+      "\t\tpack.addProvider(${2:ModLangProvider}::new);$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "Fabric: language provider (datagen)": {
+    "prefix": [
+      "fabric-lang-provider"
+    ],
+    "description": "FabricLanguageProvider. Output class: FabricDataOutput (1.21.x) or FabricPackOutput (26.x).",
+    "body": [
+      "import java.util.concurrent.CompletableFuture;",
+      "import net.fabricmc.fabric.api.datagen.v1.${1|FabricDataOutput,FabricPackOutput|};",
+      "import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;",
+      "import net.minecraft.core.HolderLookup;",
+      "",
+      "public class ${2:${TM_FILENAME_BASE}} extends FabricLanguageProvider {",
+      "\tpublic ${2}(${1} output, CompletableFuture<HolderLookup.Provider> registries) {",
+      "\t\tsuper(output, \"${3:en_us}\", registries);",
+      "\t}",
+      "",
+      "\t@Override",
+      "\tpublic void generateTranslations(HolderLookup.Provider registries, TranslationBuilder builder) {",
+      "\t\tbuilder.add(${4:ModItems.RUBY}, \"${5:Ruby}\");$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "Mixin class (Fabric / NeoForge)": {
+    "prefix": [
+      "fabric-mixin",
+      "neo-mixin"
+    ],
+    "description": "Mixin with an @Inject at HEAD. List it in <modid>.mixins.json (Fabric: \"mixins\" in fabric.mod.json; NeoForge: [[mixins]] config=\"<modid>.mixins.json\" in neoforge.mods.toml).",
+    "body": [
+      "package ${1:com.example.mymod.mixin};",
+      "",
+      "import org.spongepowered.asm.mixin.Mixin;",
+      "import org.spongepowered.asm.mixin.injection.At;",
+      "import org.spongepowered.asm.mixin.injection.Inject;",
+      "import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;",
+      "",
+      "@Mixin(${2:TargetClass}.class)",
+      "public abstract class ${3:${TM_FILENAME_BASE}} {",
+      "\t@Inject(method = \"${4:methodName}\", at = @At(\"${5|HEAD,RETURN,TAIL|}\")${6:, cancellable = true})",
+      "\tprivate void ${7:mymod}\\$${8:onMethod}(CallbackInfo ci) {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "Fabric: network payload (1.21.x)": {
+    "prefix": [
+      "fabric-payload"
+    ],
+    "description": "CustomPacketPayload + StreamCodec, registered with PayloadTypeRegistry.playS2C() (Fabric API 1.21.x, Mojang mappings). Identifier = 1.21.11+, ResourceLocation = 1.21–1.21.10.",
+    "body": [
+      "public record ${1:SyncDataPayload}(${2:int value}) implements CustomPacketPayload {",
+      "\tpublic static final CustomPacketPayload.Type<${1}> TYPE = new CustomPacketPayload.Type<>(${9|Identifier,ResourceLocation|}.fromNamespaceAndPath(${3:MyMod}.MOD_ID, \"${4:sync_data}\"));",
+      "\tpublic static final StreamCodec<RegistryFriendlyByteBuf, ${1}> STREAM_CODEC = StreamCodec.composite(",
+      "\t\t\t${5:ByteBufCodecs.VAR_INT}, ${1}::${6:value},",
+      "\t\t\t${1}::new);",
+      "",
+      "\t@Override",
+      "\tpublic CustomPacketPayload.Type<? extends CustomPacketPayload> type() {",
+      "\t\treturn TYPE;",
+      "\t}",
+      "}",
+      "",
+      "// In onInitialize():  PayloadTypeRegistry.playS2C().register(${1}.TYPE, ${1}.STREAM_CODEC);",
+      "// Send (server):       ServerPlayNetworking.send(player, new ${1}(...));",
+      "// Receive (client):    ClientPlayNetworking.registerGlobalReceiver(${1}.TYPE, (payload, context) -> { ... });"
+    ]
+  },
+  "Fabric: network payload (26.x)": {
+    "prefix": [
+      "fabric-payload-26"
+    ],
+    "description": "CustomPacketPayload + StreamCodec for Fabric API 26.x (PayloadTypeRegistry.clientboundPlay()/serverboundPlay()).",
+    "body": [
+      "public record ${1:SyncDataPayload}(${2:int value}) implements CustomPacketPayload {",
+      "\tpublic static final CustomPacketPayload.Type<${1}> TYPE = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(${3:MyMod}.MOD_ID, \"${4:sync_data}\"));",
+      "\tpublic static final StreamCodec<RegistryFriendlyByteBuf, ${1}> STREAM_CODEC = StreamCodec.composite(",
+      "\t\t\t${5:ByteBufCodecs.VAR_INT}, ${1}::${6:value},",
+      "\t\t\t${1}::new);",
+      "",
+      "\t@Override",
+      "\tpublic CustomPacketPayload.Type<? extends CustomPacketPayload> type() {",
+      "\t\treturn TYPE;",
+      "\t}",
+      "}",
+      "",
+      "// In onInitialize():  PayloadTypeRegistry.clientboundPlay().register(${1}.TYPE, ${1}.STREAM_CODEC);",
+      "// Send (server):       ServerPlayNetworking.send(player, new ${1}(...));",
+      "// Receive (client):    ClientPlayNetworking.registerGlobalReceiver(${1}.TYPE, (payload, context) -> { ... });"
+    ]
+  },
+  "NeoForge: mod main class": {
+    "prefix": [
+      "neo-mod-main"
+    ],
+    "description": "NeoForge @Mod class with DeferredRegisters for blocks, items and creative tabs.",
+    "body": [
+      "package ${1:com.example.mymod};",
+      "",
+      "import com.mojang.logging.LogUtils;",
+      "import net.minecraft.core.registries.Registries;",
+      "import net.minecraft.world.item.CreativeModeTab;",
+      "import net.neoforged.bus.api.IEventBus;",
+      "import net.neoforged.fml.ModContainer;",
+      "import net.neoforged.fml.common.Mod;",
+      "import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;",
+      "import net.neoforged.neoforge.registries.DeferredRegister;",
+      "import org.slf4j.Logger;",
+      "",
+      "@Mod(${2:${TM_FILENAME_BASE}}.MODID)",
+      "public class ${2} {",
+      "\tpublic static final String MODID = \"${3:mymod}\";",
+      "\tpublic static final Logger LOGGER = LogUtils.getLogger();",
+      "",
+      "\tpublic static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);",
+      "\tpublic static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);",
+      "\tpublic static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);",
+      "",
+      "\tpublic ${2}(IEventBus modEventBus, ModContainer modContainer) {",
+      "\t\tmodEventBus.addListener(this::commonSetup);",
+      "\t\tBLOCKS.register(modEventBus);",
+      "\t\tITEMS.register(modEventBus);",
+      "\t\tCREATIVE_MODE_TABS.register(modEventBus);",
+      "\t}",
+      "",
+      "\tprivate void commonSetup(FMLCommonSetupEvent event) {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "NeoForge: DeferredRegister for items": {
+    "prefix": [
+      "neo-items",
+      "neo-deferred-register-items"
+    ],
+    "description": "DeferredRegister.Items — remember ITEMS.register(modEventBus) in the mod constructor.",
+    "body": [
+      "public static final DeferredRegister.Items ${1:ITEMS} = DeferredRegister.createItems(${2:MyMod}.MODID);"
+    ]
+  },
+  "NeoForge: simple item": {
+    "prefix": [
+      "neo-item"
+    ],
+    "description": "registerSimpleItem/registerItem set the item id on the properties for you (required since 1.21.2).",
+    "body": [
+      "public static final DeferredItem<${1:Item}> ${2:RUBY} = ITEMS.registerItem(\"${3:ruby}\", ${1}::new);"
+    ]
+  },
+  "NeoForge: item with properties (1.21.10+ / 26.x)": {
+    "prefix": [
+      "neo-item-props"
+    ],
+    "description": "1.21.10+: the properties argument is a UnaryOperator<Item.Properties>.",
+    "body": [
+      "public static final DeferredItem<${1:Item}> ${2:RUBY} = ITEMS.registerItem(\"${3:ruby}\", ${1}::new, p -> p${4:.stacksTo(16)});"
+    ]
+  },
+  "NeoForge: item with properties (1.21 – 1.21.9)": {
+    "prefix": [
+      "neo-item-props-1.21.1"
+    ],
+    "description": "Before 1.21.10 registerItem takes an Item.Properties instance.",
+    "body": [
+      "public static final DeferredItem<${1:Item}> ${2:RUBY} = ITEMS.registerItem(\"${3:ruby}\", ${1}::new, new Item.Properties()${4:.stacksTo(16)});"
+    ]
+  },
+  "NeoForge: item with explicit id (1.21.2+ / 26.x)": {
+    "prefix": [
+      "neo-item-setid"
+    ],
+    "description": "Register with the id function and set it on the properties yourself (1.21.2+).",
+    "body": [
+      "public static final DeferredItem<${1:Item}> ${2:RUBY} = ITEMS.register(\"${3:ruby}\", id -> new ${1}(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, id))${4}));"
+    ]
+  },
+  "NeoForge: block + block item (1.21.10+ / 26.x)": {
+    "prefix": [
+      "neo-block"
+    ],
+    "description": "DeferredRegister.Blocks + registerSimpleBlockItem. 1.21.10+: properties are a UnaryOperator.",
+    "body": [
+      "public static final DeferredBlock<Block> ${1:RUBY_BLOCK} = BLOCKS.registerSimpleBlock(\"${2:ruby_block}\", p -> p.strength(${3:5.0f}).sound(SoundType.${4:METAL}).requiresCorrectToolForDrops());",
+      "public static final DeferredItem<BlockItem> ${5:RUBY_BLOCK_ITEM} = ITEMS.registerSimpleBlockItem(\"${2}\", ${1});"
+    ]
+  },
+  "NeoForge: block + block item (1.21 – 1.21.9)": {
+    "prefix": [
+      "neo-block-1.21.1"
+    ],
+    "description": "Before 1.21.10 registerSimpleBlock takes a BlockBehaviour.Properties instance.",
+    "body": [
+      "public static final DeferredBlock<Block> ${1:RUBY_BLOCK} = BLOCKS.registerSimpleBlock(\"${2:ruby_block}\", BlockBehaviour.Properties.of().strength(${3:5.0f}).sound(SoundType.${4:METAL}).requiresCorrectToolForDrops());",
+      "public static final DeferredItem<BlockItem> ${5:RUBY_BLOCK_ITEM} = ITEMS.registerSimpleBlockItem(\"${2}\", ${1});"
+    ]
+  },
+  "NeoForge: custom block class": {
+    "prefix": [
+      "neo-block-custom"
+    ],
+    "description": "Register a block of your own class (properties get the id automatically).",
+    "body": [
+      "public static final DeferredBlock<${1:MyBlock}> ${2:MY_BLOCK} = BLOCKS.registerBlock(\"${3:my_block}\", ${1}::new${4:, p -> p.strength(2.0f)});"
+    ]
+  },
+  "NeoForge: creative tab": {
+    "prefix": [
+      "neo-creative-tab"
+    ],
+    "description": "Creative mode tab through a DeferredRegister<CreativeModeTab>. Add \"itemGroup.<modid>\" to your lang file.",
+    "body": [
+      "public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ${1:MAIN_TAB} = CREATIVE_MODE_TABS.register(\"${2:main}\", () -> CreativeModeTab.builder()",
+      "\t\t.title(Component.translatable(\"itemGroup.${3:mymod}\"))",
+      "\t\t.withTabsBefore(CreativeModeTabs.COMBAT)",
+      "\t\t.icon(() -> ${4:RUBY}.get().getDefaultInstance())",
+      "\t\t.displayItems((parameters, output) -> {",
+      "\t\t\toutput.accept(${4}.get());$0",
+      "\t\t})",
+      "\t\t.build());"
+    ]
+  },
+  "NeoForge: add items to a vanilla tab": {
+    "prefix": [
+      "neo-creative-tab-contents"
+    ],
+    "description": "BuildCreativeModeTabContentsEvent (mod bus): add items to vanilla tabs.",
+    "body": [
+      "@SubscribeEvent",
+      "public static void buildContents(BuildCreativeModeTabContentsEvent event) {",
+      "\tif (event.getTabKey() == CreativeModeTabs.${1|INGREDIENTS,BUILDING_BLOCKS,COLORED_BLOCKS,NATURAL_BLOCKS,FUNCTIONAL_BLOCKS,REDSTONE_BLOCKS,TOOLS_AND_UTILITIES,COMBAT,FOOD_AND_DRINKS,SPAWN_EGGS|}) {",
+      "\t\tevent.accept(${2:RUBY});$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "NeoForge: data component type": {
+    "prefix": [
+      "neo-data-component"
+    ],
+    "description": "DeferredRegister.DataComponents + registerComponentType (persistent + synced).",
+    "body": [
+      "public static final DeferredRegister.DataComponents ${1:DATA_COMPONENTS} = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ${2:MyMod}.MODID);",
+      "public static final DeferredHolder<DataComponentType<?>, DataComponentType<${3:Integer}>> ${4:CHARGE} = ${1}.registerComponentType(\"${5:charge}\",",
+      "\t\tbuilder -> builder.persistent(${6:Codec.INT}).networkSynchronized(${7:ByteBufCodecs.VAR_INT}));"
+    ]
+  },
+  "NeoForge: block entity type (1.21.2+ / 26.x)": {
+    "prefix": [
+      "neo-block-entity-type"
+    ],
+    "description": "1.21.2+: BlockEntityType constructor (the vanilla Builder was removed).",
+    "body": [
+      "public static final DeferredRegister<BlockEntityType<?>> ${1:BLOCK_ENTITY_TYPES} = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ${2:MyMod}.MODID);",
+      "public static final Supplier<BlockEntityType<${3:MyBlockEntity}>> ${4:MY_BLOCK_ENTITY} = ${1}.register(\"${5:my_block_entity}\",",
+      "\t\t() -> new BlockEntityType<>(${3}::new, ${6:MY_BLOCK}.get()));"
+    ]
+  },
+  "NeoForge: block entity type (1.21 – 1.21.1)": {
+    "prefix": [
+      "neo-block-entity-type-1.21.1"
+    ],
+    "description": "1.21/1.21.1: BlockEntityType.Builder.",
+    "body": [
+      "public static final DeferredRegister<BlockEntityType<?>> ${1:BLOCK_ENTITY_TYPES} = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ${2:MyMod}.MODID);",
+      "public static final Supplier<BlockEntityType<${3:MyBlockEntity}>> ${4:MY_BLOCK_ENTITY} = ${1}.register(\"${5:my_block_entity}\",",
+      "\t\t() -> BlockEntityType.Builder.of(${3}::new, ${6:MY_BLOCK}.get()).build(null));"
+    ]
+  },
+  "NeoForge: @EventBusSubscriber class": {
+    "prefix": [
+      "neo-event-subscriber"
+    ],
+    "description": "Static event handlers discovered automatically. Recent NeoForge picks the bus from the event type; on older 1.21.x add bus = EventBusSubscriber.Bus.MOD for mod-bus events.",
+    "body": [
+      "import net.neoforged.bus.api.SubscribeEvent;",
+      "import net.neoforged.fml.common.EventBusSubscriber;",
+      "",
+      "@EventBusSubscriber(modid = ${1:MyMod}.MODID${2:, value = Dist.CLIENT})",
+      "public final class ${3:${TM_FILENAME_BASE}} {",
+      "\t@SubscribeEvent",
+      "\tpublic static void ${4:onEvent}(${5:ServerStartingEvent} event) {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "NeoForge: data generation (1.21.4+ / 26.x)": {
+    "prefix": [
+      "neo-datagen"
+    ],
+    "description": "1.21.4+: GatherDataEvent.Client / .Server with createProvider (run config: clientData()).",
+    "body": [
+      "@SubscribeEvent",
+      "public static void gatherData(GatherDataEvent.${1|Client,Server|} event) {",
+      "\tevent.createProvider(${2:ModLanguageProvider}::new);$0",
+      "}"
+    ]
+  },
+  "NeoForge: data generation (1.21 – 1.21.3)": {
+    "prefix": [
+      "neo-datagen-1.21.1"
+    ],
+    "description": "GatherDataEvent with DataGenerator#addProvider (run config: data()).",
+    "body": [
+      "@SubscribeEvent",
+      "public static void gatherData(GatherDataEvent event) {",
+      "\tDataGenerator generator = event.getGenerator();",
+      "\tPackOutput output = generator.getPackOutput();",
+      "\tCompletableFuture<HolderLookup.Provider> registries = event.getLookupProvider();",
+      "\tgenerator.addProvider(event.includeClient(), new ${1:ModLanguageProvider}(output));$0",
+      "}"
+    ]
+  },
+  "NeoForge: network payload": {
+    "prefix": [
+      "neo-payload"
+    ],
+    "description": "CustomPacketPayload + StreamCodec registered in RegisterPayloadHandlersEvent (mod bus). Identifier = 1.21.11+/26.x, ResourceLocation = older.",
+    "body": [
+      "public record ${1:SyncDataPayload}(${2:int value}) implements CustomPacketPayload {",
+      "\tpublic static final CustomPacketPayload.Type<${1}> TYPE = new CustomPacketPayload.Type<>(${9|Identifier,ResourceLocation|}.fromNamespaceAndPath(${3:MyMod}.MODID, \"${4:sync_data}\"));",
+      "\tpublic static final StreamCodec<RegistryFriendlyByteBuf, ${1}> STREAM_CODEC = StreamCodec.composite(",
+      "\t\t\t${5:ByteBufCodecs.VAR_INT}, ${1}::${6:value},",
+      "\t\t\t${1}::new);",
+      "",
+      "\t@Override",
+      "\tpublic CustomPacketPayload.Type<? extends CustomPacketPayload> type() {",
+      "\t\treturn TYPE;",
+      "\t}",
+      "}",
+      "",
+      "// @SubscribeEvent",
+      "// public static void register(RegisterPayloadHandlersEvent event) {",
+      "//     event.registrar(\"1\").playToClient(${1}.TYPE, ${1}.STREAM_CODEC, (payload, context) -> { ... });",
+      "// }",
+      "// Send: PacketDistributor.sendToPlayer(player, new ${1}(...));"
+    ]
+  }
+}

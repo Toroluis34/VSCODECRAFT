@@ -1,0 +1,72 @@
+{
+  "commands": [
+    { "command": "vscodecraft.loot.preview", "title": "%loot.preview%", "category": "VSCodeCraft", "icon": "$(open-preview)" },
+    { "command": "vscodecraft.loot.openEditor", "title": "%loot.openEditor%", "category": "VSCodeCraft", "icon": "$(table)" },
+    { "command": "vscodecraft.loot.openSource", "title": "%loot.openSource%", "category": "VSCodeCraft", "icon": "$(go-to-file)" },
+    { "command": "vscodecraft.loot.openVanilla", "title": "%loot.openVanilla%", "category": "VSCodeCraft", "icon": "$(library)" },
+    { "command": "vscodecraft.loot.copyToMod", "title": "%loot.copyToMod%", "category": "VSCodeCraft", "icon": "$(copy)" },
+    { "command": "vscodecraft.loot.advancementTree", "title": "%loot.advancementTree%", "category": "VSCodeCraft", "icon": "$(type-hierarchy)" },
+    { "command": "vscodecraft.loot.previewAdvancement", "title": "%loot.previewAdvancement%", "category": "VSCodeCraft", "icon": "$(open-preview)" },
+    { "command": "vscodecraft.loot.newAdvancement", "title": "%loot.newAdvancement%", "category": "VSCodeCraft", "icon": "$(add)" },
+    { "command": "vscodecraft.loot.give", "title": "%loot.give%", "category": "VSCodeCraft", "icon": "$(gift)" }
+  ],
+  "customEditors": [
+    {
+      "viewType": "vscodecraft.loot.editor",
+      "displayName": "%loot.editor.displayName%",
+      "selector": [
+        { "filenamePattern": "**/data/*/loot_table/**/*.json" },
+        { "filenamePattern": "**/data/*/loot_tables/**/*.json" }
+      ],
+      "priority": "option"
+    }
+  ],
+  "menus": {
+    "editor/title": [
+      {
+        "command": "vscodecraft.loot.preview",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/ && activeCustomEditorId != vscodecraft.loot.editor",
+        "group": "navigation@41"
+      },
+      {
+        "command": "vscodecraft.loot.openSource",
+        "when": "activeCustomEditorId == vscodecraft.loot.editor",
+        "group": "navigation@41"
+      },
+      {
+        "command": "vscodecraft.loot.previewAdvancement",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]advancements?[\\/\\\\]/",
+        "group": "navigation@41"
+      }
+    ],
+    "editor/context": [
+      {
+        "command": "vscodecraft.loot.openEditor",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/",
+        "group": "vscodecraft@3"
+      },
+      {
+        "command": "vscodecraft.loot.give",
+        "when": "resourceExtname == .mcfunction",
+        "group": "vscodecraft@3"
+      }
+    ],
+    "explorer/context": [
+      {
+        "command": "vscodecraft.loot.openEditor",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/",
+        "group": "navigation@9"
+      },
+      {
+        "command": "vscodecraft.loot.newAdvancement",
+        "when": "explorerResourceIsFolder && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]advancements?([\\/\\\\]|$)/",
+        "group": "vscodecraft@1"
+      }
+    ],
+    "commandPalette": [
+      { "command": "vscodecraft.loot.openSource", "when": "activeCustomEditorId == vscodecraft.loot.editor" },
+      { "command": "vscodecraft.loot.openEditor", "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]loot_tables?[\\/\\\\]/" },
+      { "command": "vscodecraft.loot.copyToMod", "when": "false" }
+    ]
+  }
+}

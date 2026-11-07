@@ -1,0 +1,272 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "mcfunction",
+  "scopeName": "source.mcfunction",
+  "fileTypes": ["mcfunction"],
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#line" }
+  ],
+  "repository": {
+    "comment": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.mcfunction",
+          "match": "^\\s*(#)(?!>).*$",
+          "captures": { "1": { "name": "punctuation.definition.comment.mcfunction" } }
+        },
+        {
+          "name": "comment.block.documentation.mcfunction",
+          "match": "^\\s*#>.*$"
+        }
+      ]
+    },
+    "line": {
+      "patterns": [
+        {
+          "comment": "macro line: $command ... $(var)",
+          "begin": "^\\s*(\\$)",
+          "beginCaptures": { "1": { "name": "keyword.control.macro.mcfunction" } },
+          "end": "$",
+          "name": "meta.macro-line.mcfunction",
+          "patterns": [{ "include": "#command-start" }, { "include": "#arguments" }]
+        },
+        {
+          "begin": "^\\s*(?=[a-z/])",
+          "end": "$",
+          "name": "meta.command.mcfunction",
+          "patterns": [{ "include": "#command-start" }, { "include": "#arguments" }]
+        }
+      ]
+    },
+    "command-start": {
+      "match": "\\G\\s*/?([a-z][a-z0-9_-]*)",
+      "captures": { "1": { "name": "keyword.other.command.mcfunction" } }
+    },
+    "arguments": {
+      "patterns": [
+        { "include": "#macro-variable" },
+        { "include": "#run" },
+        { "include": "#string" },
+        { "include": "#selector" },
+        { "include": "#compound" },
+        { "include": "#list" },
+        { "include": "#resource-with-components" },
+        { "include": "#resource-location" },
+        { "include": "#coordinate" },
+        { "include": "#uuid" },
+        { "include": "#range" },
+        { "include": "#number" },
+        { "include": "#boolean" },
+        { "include": "#operator" },
+        { "include": "#subcommand" },
+        { "include": "#nbt-path" },
+        { "include": "#word" }
+      ]
+    },
+    "run": {
+      "comment": "execute ... run <command>",
+      "match": "\\b(run)\\s+([a-z][a-z0-9_-]*)",
+      "captures": {
+        "1": { "name": "keyword.control.run.mcfunction" },
+        "2": { "name": "keyword.other.command.mcfunction" }
+      }
+    },
+    "subcommand": {
+      "match": "(?<=\\s)(as|at|if|unless|store|positioned|rotated|facing|align|anchored|in|on|summon|result|success|matches|entity|block|blocks|score|data|predicate|function|biome|dimension|loaded|items|stopwatch|all|masked|over|eyes|feet|attacker|controller|leasher|origin|owner|passengers|target|vehicle|storage|bossbar|value|max|get|set|add|remove|list|merge|modify|append|prepend|insert|from|string|objectives|players|operation|reset|enable|display|setdisplay|numberformat|give|take|clear|grant|revoke|only|until|everything|through|replace|destroy|keep|hollow|outline|strict|force|move|filtered|with)(?=\\s|$)",
+      "name": "keyword.control.subcommand.mcfunction"
+    },
+    "macro-variable": {
+      "match": "(\\$\\()([a-zA-Z0-9_]+)(\\))",
+      "captures": {
+        "1": { "name": "punctuation.definition.variable.begin.mcfunction" },
+        "2": { "name": "variable.other.macro.mcfunction" },
+        "3": { "name": "punctuation.definition.variable.end.mcfunction" }
+      }
+    },
+    "string": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.mcfunction",
+          "begin": "\"",
+          "end": "\"|$",
+          "patterns": [
+            { "name": "constant.character.escape.mcfunction", "match": "\\\\." },
+            { "include": "#macro-variable" }
+          ]
+        },
+        {
+          "name": "string.quoted.single.mcfunction",
+          "begin": "'",
+          "end": "'|$",
+          "patterns": [
+            { "name": "constant.character.escape.mcfunction", "match": "\\\\." },
+            { "include": "#macro-variable" }
+          ]
+        }
+      ]
+    },
+    "selector": {
+      "patterns": [
+        {
+          "begin": "(@[aesprn])(\\[)",
+          "beginCaptures": {
+            "1": { "name": "support.class.selector.mcfunction" },
+            "2": { "name": "punctuation.section.selector.begin.mcfunction" }
+          },
+          "end": "\\]|$",
+          "endCaptures": { "0": { "name": "punctuation.section.selector.end.mcfunction" } },
+          "name": "meta.selector.mcfunction",
+          "patterns": [
+            {
+              "match": "([a-z_]+)\\s*(=)\\s*(!)?",
+              "captures": {
+                "1": { "name": "entity.other.attribute-name.selector.mcfunction" },
+                "2": { "name": "keyword.operator.assignment.mcfunction" },
+                "3": { "name": "keyword.operator.negation.mcfunction" }
+              }
+            },
+            { "match": ",", "name": "punctuation.separator.mcfunction" },
+            { "include": "#selector-scores" },
+            { "include": "#macro-variable" },
+            { "include": "#string" },
+            { "include": "#compound" },
+            { "include": "#resource-location" },
+            { "include": "#range" },
+            { "include": "#number" },
+            { "include": "#boolean" },
+            { "include": "#word" }
+          ]
+        },
+        { "match": "@[aesprn]\\b", "name": "support.class.selector.mcfunction" }
+      ]
+    },
+    "selector-scores": {
+      "begin": "\\{",
+      "end": "\\}",
+      "name": "meta.selector.scores.mcfunction",
+      "patterns": [
+        { "match": "([a-zA-Z0-9_.+-]+)\\s*(=)", "captures": { "1": { "name": "variable.other.objective.mcfunction" }, "2": { "name": "keyword.operator.assignment.mcfunction" } } },
+        { "include": "#range" },
+        { "include": "#number" },
+        { "include": "#compound-content" }
+      ]
+    },
+    "compound": {
+      "begin": "\\{",
+      "beginCaptures": { "0": { "name": "punctuation.section.braces.begin.mcfunction" } },
+      "end": "\\}|$",
+      "endCaptures": { "0": { "name": "punctuation.section.braces.end.mcfunction" } },
+      "name": "meta.structure.compound.mcfunction",
+      "patterns": [{ "include": "#compound-content" }]
+    },
+    "compound-content": {
+      "patterns": [
+        {
+          "match": "(\"(?:[^\"\\\\]|\\\\.)*\"|'(?:[^'\\\\]|\\\\.)*'|[A-Za-z0-9_.+:-]+)\\s*(:)",
+          "captures": {
+            "1": { "name": "support.type.property-name.nbt.mcfunction" },
+            "2": { "name": "punctuation.separator.key-value.mcfunction" }
+          }
+        },
+        { "match": ",", "name": "punctuation.separator.mcfunction" },
+        { "include": "#macro-variable" },
+        { "include": "#string" },
+        { "include": "#compound" },
+        { "include": "#list" },
+        { "include": "#number" },
+        { "include": "#boolean" },
+        { "include": "#word" }
+      ]
+    },
+    "list": {
+      "begin": "\\[(?:([BIL])(;))?",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.brackets.begin.mcfunction" },
+        "1": { "name": "storage.type.array.mcfunction" }
+      },
+      "end": "\\]|$",
+      "endCaptures": { "0": { "name": "punctuation.section.brackets.end.mcfunction" } },
+      "name": "meta.structure.list.mcfunction",
+      "patterns": [{ "include": "#compound-content" }]
+    },
+    "resource-with-components": {
+      "comment": "item / block with component or state syntax: minecraft:diamond_sword[damage=5,!unbreakable] or stone[facing=north]",
+      "begin": "(#?[a-z0-9_.-]+:[a-z0-9_./-]+|(?<=\\s)[a-z0-9_]+(?:/[a-z0-9_]+)*)(\\[)",
+      "beginCaptures": {
+        "1": { "name": "entity.name.type.resource-location.mcfunction" },
+        "2": { "name": "punctuation.section.components.begin.mcfunction" }
+      },
+      "end": "\\]|$",
+      "endCaptures": { "0": { "name": "punctuation.section.components.end.mcfunction" } },
+      "name": "meta.components.mcfunction",
+      "patterns": [
+        {
+          "match": "(!)?(~)?([a-z0-9_.-]+:)?([a-z0-9_/.-]+)\\s*(=|~|(?=\\s*[,\\]|]))",
+          "captures": {
+            "1": { "name": "keyword.operator.negation.mcfunction" },
+            "2": { "name": "keyword.operator.predicate.mcfunction" },
+            "3": { "name": "support.type.property-name.component.mcfunction" },
+            "4": { "name": "support.type.property-name.component.mcfunction" },
+            "5": { "name": "keyword.operator.assignment.mcfunction" }
+          }
+        },
+        { "match": "[,|]", "name": "punctuation.separator.mcfunction" },
+        { "include": "#macro-variable" },
+        { "include": "#string" },
+        { "include": "#compound" },
+        { "include": "#list" },
+        { "include": "#resource-location" },
+        { "include": "#range" },
+        { "include": "#number" },
+        { "include": "#boolean" },
+        { "include": "#word" }
+      ]
+    },
+    "resource-location": {
+      "patterns": [
+        { "match": "#[a-z0-9_.-]+:[a-z0-9_./-]+|#[a-z0-9_./-]+(?=[\\s\\[{]|$)", "name": "entity.name.tag.mcfunction" },
+        { "match": "\\b[a-z0-9_.-]+:[a-z0-9_./-]+", "name": "entity.name.type.resource-location.mcfunction" }
+      ]
+    },
+    "coordinate": {
+      "match": "(?<=\\s)([~^])(-?\\d*\\.?\\d+)?(?=\\s|$)",
+      "captures": {
+        "1": { "name": "keyword.operator.coordinate.mcfunction" },
+        "2": { "name": "constant.numeric.coordinate.mcfunction" }
+      }
+    },
+    "uuid": {
+      "match": "\\b[0-9a-fA-F]+-[0-9a-fA-F]+-[0-9a-fA-F]+-[0-9a-fA-F]+-[0-9a-fA-F]+\\b",
+      "name": "constant.other.uuid.mcfunction"
+    },
+    "range": {
+      "match": "(-?\\d*\\.?\\d+)?(\\.\\.)(-?\\d*\\.?\\d+)?",
+      "captures": {
+        "1": { "name": "constant.numeric.mcfunction" },
+        "2": { "name": "keyword.operator.range.mcfunction" },
+        "3": { "name": "constant.numeric.mcfunction" }
+      }
+    },
+    "number": {
+      "match": "(?<![\\w.])-?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?([bBsSlLfFdD]|[iu](?:8|16|32|64))?(?![\\w:/])",
+      "name": "constant.numeric.mcfunction"
+    },
+    "boolean": {
+      "match": "\\b(true|false)\\b",
+      "name": "constant.language.boolean.mcfunction"
+    },
+    "operator": {
+      "match": "(?<=\\s)(=|\\+=|-=|\\*=|/=|%=|<|>|><|<=|>=)(?=\\s)",
+      "name": "keyword.operator.scoreboard.mcfunction"
+    },
+    "nbt-path": {
+      "match": "(?<=[\\w\\]}])\\.(?=[A-Za-z_\"])",
+      "name": "punctuation.accessor.mcfunction"
+    },
+    "word": {
+      "match": "[A-Za-z_][A-Za-z0-9_.+-]*",
+      "name": "variable.other.mcfunction"
+    }
+  }
+}

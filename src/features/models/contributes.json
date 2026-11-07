@@ -1,0 +1,52 @@
+{
+  "commands": [
+    { "command": "vscodecraft.models.openViewer", "title": "%models.openViewer%", "category": "VSCodeCraft", "icon": "$(preview)" },
+    { "command": "vscodecraft.models.newItem", "title": "%models.newItem%", "category": "VSCodeCraft", "icon": "$(add)" },
+    { "command": "vscodecraft.models.newBlock", "title": "%models.newBlock%", "category": "VSCodeCraft", "icon": "$(add)" },
+    { "command": "vscodecraft.models.generateBlockSet", "title": "%models.generateBlockSet%", "category": "VSCodeCraft", "icon": "$(layers)" },
+    { "command": "vscodecraft.models.migrateItemDefinitions", "title": "%models.migrateItemDefinitions%", "category": "VSCodeCraft", "icon": "$(arrow-swap)" }
+  ],
+  "menus": {
+    "editor/title": [
+      {
+        "command": "vscodecraft.models.openViewer",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/](models|blockstates|items)[\\\\/]/ && activeEditor != vscodecraft.models.viewer",
+        "group": "navigation@20"
+      }
+    ],
+    "explorer/context": [
+      {
+        "command": "vscodecraft.models.openViewer",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/](models|blockstates|items)[\\\\/]/",
+        "group": "navigation@20"
+      },
+      {
+        "command": "vscodecraft.models.generateBlockSet",
+        "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]block[\\\\/]/",
+        "group": "vscodecraft@20"
+      },
+      {
+        "command": "vscodecraft.models.newItem",
+        "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/](resources|assets|data)([\\\\/]|$)/",
+        "group": "vscodecraft@10"
+      },
+      {
+        "command": "vscodecraft.models.newBlock",
+        "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/](resources|assets|data)([\\\\/]|$)/",
+        "group": "vscodecraft@11"
+      }
+    ]
+  },
+  "customEditors": [
+    {
+      "viewType": "vscodecraft.models.viewer",
+      "displayName": "%models.viewer.displayName%",
+      "selector": [
+        { "filenamePattern": "**/assets/*/models/**/*.json" },
+        { "filenamePattern": "**/assets/*/blockstates/**/*.json" },
+        { "filenamePattern": "**/assets/*/items/**/*.json" }
+      ],
+      "priority": "option"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "language.validateWorkspace": "Validar recursos del espacio de trabajo (ids, etiquetas, modelos, texturas)",
+  "language.renameLegacyFolder": "Renombrar carpeta antigua al nombre de 1.21+",
+  "language.createResource": "Crear recurso que falta",
+  "language.config.diagnostics": "Comprobar las ubicaciones de recursos en los JSON de data packs y resource packs (ítems, bloques y etiquetas desconocidos, modelos y texturas que faltan, carpetas antiguas, formato de ingredientes).",
+  "language.config.validateWorkspace": "Validar todos los JSON de data/ y assets/ del espacio de trabajo cuando el índice esté listo (no solo los archivos abiertos).",
+  "language.config.strictUnknownNamespaces": "Avisar también de ids desconocidos en espacios de nombres que no son del espacio de trabajo (p. ej. `create:...` de otros mods). Desactivado por defecto para evitar falsos positivos."
+}

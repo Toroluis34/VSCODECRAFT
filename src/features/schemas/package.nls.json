@@ -1,0 +1,4 @@
+{
+  "schemas.validateAll": "Validate All Minecraft JSON Files",
+  "schemas.config.versionChecks": "Report version-compatibility problems in Minecraft JSON files that the JSON schemas can't detect (recipe types not available in the target version, `custom_model_data` format, removed components, `pack.mcmeta` format fields…)."
+}

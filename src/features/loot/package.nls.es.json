@@ -1,0 +1,12 @@
+{
+  "loot.preview": "Vista previa de la tabla de botín",
+  "loot.openEditor": "Abrir con el editor de tablas de botín",
+  "loot.openSource": "Abrir tabla de botín como JSON",
+  "loot.openVanilla": "Abrir tabla de botín vanilla…",
+  "loot.copyToMod": "Copiar tabla de botín vanilla a mi mod",
+  "loot.advancementTree": "Árbol de logros",
+  "loot.previewAdvancement": "Vista previa del logro",
+  "loot.newAdvancement": "Nuevo logro…",
+  "loot.give": "Constructor de objetos / Give",
+  "loot.editor.displayName": "Editor de tablas de botín (VSCodeCraft)"
+}

@@ -1,0 +1,113 @@
+{
+  "Load function: scoreboard setup": {
+    "prefix": ["load", "scoreboard-setup"],
+    "description": "Typical load function: create objectives and announce the pack (add it to #minecraft:load)",
+    "body": [
+      "# Runs on /reload and world load (data/minecraft/tags/function/load.json)",
+      "scoreboard objectives add ${1:ns}.${2:timer} dummy",
+      "scoreboard objectives add ${1:ns}.${3:deaths} deathCount",
+      "scoreboard players set #${4:global} ${1:ns}.${2:timer} 0",
+      "tellraw @a {\"text\":\"${5:Pack loaded!}\",\"color\":\"${6|green,gold,aqua,yellow|}\"}",
+      "$0"
+    ]
+  },
+  "Tick function": {
+    "prefix": ["tick"],
+    "description": "Tick function body (add it to #minecraft:tick)",
+    "body": [
+      "# Runs every tick (data/minecraft/tags/function/tick.json)",
+      "scoreboard players add #${1:global} ${2:ns.timer} 1",
+      "execute if score #${1:global} ${2:ns.timer} matches ${3:20..} run function ${4:ns}:${5:every_second}",
+      "$0"
+    ]
+  },
+  "Scoreboard objective": {
+    "prefix": ["scoreboard objectives add", "obj"],
+    "body": ["scoreboard objectives add ${1:name} ${2|dummy,trigger,deathCount,playerKillCount,totalKillCount,health,xp,level,food,air,armor|} ${3:{\"text\":\"${4:Display}\"}}"]
+  },
+  "Scoreboard operation": {
+    "prefix": ["scoreboard players operation", "op"],
+    "body": ["scoreboard players operation ${1:@s} ${2:objective} ${3|=,+=,-=,*=,/=,%=,<,>,><|} ${4:#source} ${5:objective}"]
+  },
+  "Execute as/at run": {
+    "prefix": ["execute as at", "exas"],
+    "body": ["execute as ${1:@a} at @s run ${0}"]
+  },
+  "Execute if entity": {
+    "prefix": ["execute if entity", "exif"],
+    "body": ["execute ${1|if,unless|} entity ${2:@e[type=${3:minecraft:zombie},distance=..${4:10}]} run ${0}"]
+  },
+  "Execute if score matches": {
+    "prefix": ["execute if score", "exscore"],
+    "body": ["execute if score ${1:@s} ${2:objective} matches ${3:1..} run ${0}"]
+  },
+  "Execute if block": {
+    "prefix": ["execute if block", "exblock"],
+    "body": ["execute if block ${1:~ ~-1 ~} ${2:#minecraft:logs} run ${0}"]
+  },
+  "Execute store result": {
+    "prefix": ["execute store", "exstore"],
+    "body": ["execute store ${1|result,success|} ${2|score @s objective,storage ns:data path int 1,entity @s path int 1|} run ${0}"]
+  },
+  "Execute positioned/rotated chain": {
+    "prefix": ["execute chain"],
+    "body": ["execute as ${1:@p} at @s anchored eyes positioned ^ ^ ^${2:1} rotated as @s if block ~ ~ ~ ${3:minecraft:air} run ${0}"]
+  },
+  "Function with macro arguments": {
+    "prefix": ["function with", "macro call"],
+    "body": ["function ${1:ns}:${2:path} ${3|{key:\"value\"},with storage ns:data args,with entity @s SelectedItem|}"]
+  },
+  "Macro line": {
+    "prefix": ["$", "macro"],
+    "description": "Macro line: $(name) is replaced by the argument when the function is called with arguments",
+    "body": ["\\$${1:say} \\$(${2:name})"]
+  },
+  "Give item with components": {
+    "prefix": ["give components", "give"],
+    "body": ["give ${1:@s} ${2:minecraft:diamond_sword}[${3:minecraft:custom_name={\"text\":\"${4:Name}\",\"italic\":false\\}},minecraft:enchantments={\"minecraft:${5:sharpness}\":${6:5}\\},minecraft:unbreakable={\\}}] ${7:1}"]
+  },
+  "Give custom item (item_model + custom_data)": {
+    "prefix": ["give custom item"],
+    "body": ["give ${1:@s} ${2:minecraft:stick}[minecraft:item_model=\"${3:ns}:${4:item}\",minecraft:custom_data={${5:id}:\"${4:item}\"\\},minecraft:item_name={\"text\":\"${6:Item}\"\\}] 1"]
+  },
+  "Summon entity with data": {
+    "prefix": ["summon"],
+    "body": ["summon ${1:minecraft:zombie} ${2:~ ~ ~} {CustomName:{\"text\":\"${3:Boss}\"},CustomNameVisible:1b,Tags:[\"${4:ns.boss}\"],${5:PersistenceRequired:1b}}"]
+  },
+  "Summon marker": {
+    "prefix": ["summon marker"],
+    "body": ["summon minecraft:marker ${1:~ ~ ~} {Tags:[\"${2:ns.marker}\"],data:{${3}}}"]
+  },
+  "Tellraw": {
+    "prefix": ["tellraw"],
+    "body": ["tellraw ${1:@a} [{\"text\":\"${2:Hello }\",\"color\":\"${3:gold}\"},{\"selector\":\"@s\"}]"]
+  },
+  "Title": {
+    "prefix": ["title"],
+    "body": ["title ${1:@a} ${2|title,subtitle,actionbar|} {\"text\":\"${3:Text}\",\"color\":\"${4:yellow}\"}"]
+  },
+  "Schedule function": {
+    "prefix": ["schedule"],
+    "body": ["schedule function ${1:ns}:${2:path} ${3:20t} ${4|replace,append|}"]
+  },
+  "Data modify storage": {
+    "prefix": ["data modify storage"],
+    "body": ["data modify storage ${1:ns}:${2:data} ${3:path} ${4|set,merge,append,prepend|} value ${5:{\\}}"]
+  },
+  "Tag add/remove": {
+    "prefix": ["tag add"],
+    "body": ["tag ${1:@s} ${2|add,remove|} ${3:ns.tag}"]
+  },
+  "Particle": {
+    "prefix": ["particle"],
+    "body": ["particle ${1:minecraft:flame} ${2:~ ~1 ~} ${3:0.2 0.2 0.2} ${4:0.01} ${5:10} ${6|normal,force|}"]
+  },
+  "Playsound": {
+    "prefix": ["playsound"],
+    "body": ["playsound ${1:minecraft:entity.experience_orb.pickup} ${2|master,music,record,weather,block,hostile,neutral,player,ambient,voice|} ${3:@s} ${4:~ ~ ~} ${5:1} ${6:1}"]
+  },
+  "Region": {
+    "prefix": ["region"],
+    "body": ["# region ${1:name}", "$0", "# endregion"]
+  }
+}

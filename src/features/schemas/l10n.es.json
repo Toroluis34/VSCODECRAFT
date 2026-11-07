@@ -1,0 +1,14 @@
+{
+  "Recipe type '{0}' requires Minecraft {1} or newer (target version: {2}).": "El tipo de receta '{0}' requiere Minecraft {1} o posterior (versión objetivo: {2}).",
+  "Recipe type '{0}' was removed in Minecraft {1} (target version: {2}).": "El tipo de receta '{0}' se eliminó en Minecraft {1} (versión objetivo: {2}).",
+  "Item model definitions (assets/<namespace>/items) require Minecraft 1.21.4 or newer (target version: {0}).": "Las definiciones de modelos de ítem (assets/<namespace>/items) requieren Minecraft 1.21.4 o posterior (versión objetivo: {0}).",
+  "Minecraft {0} uses \"min_format\" and \"max_format\" in pack.mcmeta (keep \"pack_format\" only for older versions).": "Minecraft {0} usa \"min_format\" y \"max_format\" en pack.mcmeta (deja \"pack_format\" solo para versiones anteriores).",
+  "Minecraft {0} requires \"pack_format\" in pack.mcmeta.": "Minecraft {0} requiere \"pack_format\" en pack.mcmeta.",
+  "Since 1.21.4 \"custom_model_data\" is an object ({\"floats\": [...], \"flags\": [...], \"strings\": [...], \"colors\": [...]}), not a number (target version: {0}).": "Desde la 1.21.4 \"custom_model_data\" es un objeto ({\"floats\": [...], \"flags\": [...], \"strings\": [...], \"colors\": [...]}), no un número (versión objetivo: {0}).",
+  "Before 1.21.4 \"custom_model_data\" is a number (target version: {0}).": "Antes de la 1.21.4 \"custom_model_data\" es un número (versión objetivo: {0}).",
+  "Component '{0}' was removed in Minecraft {1}; use '{2}' instead.": "El componente '{0}' se eliminó en Minecraft {1}; usa '{2}' en su lugar.",
+  "No Minecraft JSON files found in the workspace.": "No se encontraron archivos JSON de Minecraft en el espacio de trabajo.",
+  "Validating Minecraft JSON files": "Validando archivos JSON de Minecraft",
+  "Show Problems": "Mostrar problemas",
+  "Validated {0} Minecraft JSON files: {1} errors and {2} warnings in {3} files.": "Se validaron {0} archivos JSON de Minecraft: {1} errores y {2} advertencias en {3} archivos."
+}

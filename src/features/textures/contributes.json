@@ -1,0 +1,46 @@
+{
+  "customEditors": [
+    {
+      "viewType": "vscodecraft.textureEditor",
+      "displayName": "%textures.editor.displayName%",
+      "selector": [{ "filenamePattern": "**/assets/*/textures/**/*.png" }],
+      "priority": "option"
+    }
+  ],
+  "commands": [
+    { "command": "vscodecraft.textures.openEditor", "title": "%textures.openEditor%", "category": "VSCodeCraft", "icon": "$(paintcan)" },
+    { "command": "vscodecraft.textures.newTexture", "title": "%textures.newTexture%", "category": "VSCodeCraft", "icon": "$(new-file)" },
+    { "command": "vscodecraft.textures.createVariant", "title": "%textures.createVariant%", "category": "VSCodeCraft", "icon": "$(symbol-color)" },
+    { "command": "vscodecraft.textures.generateMcmeta", "title": "%textures.generateMcmeta%", "category": "VSCodeCraft", "icon": "$(play-circle)" },
+    { "command": "vscodecraft.textures.atlasOverview", "title": "%textures.atlasOverview%", "category": "VSCodeCraft", "icon": "$(symbol-misc)" }
+  ],
+  "menus": {
+    "explorer/context": [
+      { "command": "vscodecraft.textures.openEditor", "when": "resourceExtname == .png", "group": "navigation@20" },
+      { "command": "vscodecraft.textures.createVariant", "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]/", "group": "vscodecraft@20" },
+      { "command": "vscodecraft.textures.generateMcmeta", "when": "resourceExtname == .png && resourcePath =~ /[\\\\/]textures[\\\\/]/", "group": "vscodecraft@21" },
+      { "command": "vscodecraft.textures.newTexture", "when": "explorerResourceIsFolder && resourcePath =~ /[\\\\/]textures([\\\\/]|$)/", "group": "vscodecraft@22" }
+    ],
+    "editor/title": [
+      { "command": "vscodecraft.textures.openEditor", "when": "resourceExtname == .png && activeCustomEditorId != vscodecraft.textureEditor", "group": "navigation@20" },
+      { "command": "vscodecraft.textures.createVariant", "when": "activeCustomEditorId == vscodecraft.textureEditor", "group": "navigation@21" }
+    ],
+    "editor/title/context": [
+      { "command": "vscodecraft.textures.openEditor", "when": "resourceExtname == .png", "group": "vscodecraft@20" }
+    ]
+  },
+  "configuration": {
+    "properties": {
+      "vscodecraft.textures.hoverPreview": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%textures.config.hoverPreview%"
+      },
+      "vscodecraft.textures.gutterIcons": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%textures.config.gutterIcons%"
+      }
+    }
+  }
+}

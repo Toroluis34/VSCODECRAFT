@@ -1,0 +1,10 @@
+{
+  "textures.editor.displayName": "Minecraft Texture Editor",
+  "textures.openEditor": "Open in Texture Editor",
+  "textures.newTexture": "New Texture…",
+  "textures.createVariant": "Create Material Variant…",
+  "textures.generateMcmeta": "Generate Animation .mcmeta",
+  "textures.atlasOverview": "Texture Atlas Overview",
+  "textures.config.hoverPreview": "Show the texture image when hovering texture ids (`block/stone`, `mymod:item/ruby`) in JSON files.",
+  "textures.config.gutterIcons": "Show small texture icons in the gutter next to texture references in model JSON files."
+}

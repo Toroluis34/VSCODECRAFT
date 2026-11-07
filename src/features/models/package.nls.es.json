@@ -1,0 +1,8 @@
+{
+  "models.openViewer": "Abrir visor de modelos",
+  "models.newItem": "Nuevo ítem…",
+  "models.newBlock": "Nuevo bloque…",
+  "models.generateBlockSet": "Generar conjunto de modelos de bloque (escaleras, losa, muro…)",
+  "models.migrateItemDefinitions": "Crear definiciones de modelo de ítem a partir de modelos de ítem (1.21.4+)",
+  "models.viewer.displayName": "Visor de modelos de Minecraft"
+}

@@ -1,0 +1,64 @@
+{
+  "commands": [
+    { "command": "vscodecraft.recipes.openPreview", "title": "%recipes.openPreview%", "category": "VSCodeCraft", "icon": "$(open-preview)" },
+    { "command": "vscodecraft.recipes.openEditor", "title": "%recipes.openEditor%", "category": "VSCodeCraft", "icon": "$(symbol-color)" },
+    { "command": "vscodecraft.recipes.openSource", "title": "%recipes.openSource%", "category": "VSCodeCraft", "icon": "$(go-to-file)" },
+    { "command": "vscodecraft.recipes.new", "title": "%recipes.new%", "category": "VSCodeCraft", "icon": "$(add)" },
+    { "command": "vscodecraft.recipes.migrate", "title": "%recipes.migrate%", "category": "VSCodeCraft", "icon": "$(arrow-swap)" },
+    { "command": "vscodecraft.recipes.migrateFile", "title": "%recipes.migrateFile%", "category": "VSCodeCraft", "icon": "$(arrow-swap)" },
+    { "command": "vscodecraft.recipes.browser", "title": "%recipes.browser%", "category": "VSCodeCraft", "icon": "$(book)" }
+  ],
+  "customEditors": [
+    {
+      "viewType": "vscodecraft.recipeEditor",
+      "displayName": "%recipes.editor.displayName%",
+      "selector": [
+        { "filenamePattern": "**/data/*/recipe/**/*.json" },
+        { "filenamePattern": "**/data/*/recipes/**/*.json" }
+      ],
+      "priority": "option"
+    }
+  ],
+  "menus": {
+    "editor/title": [
+      {
+        "command": "vscodecraft.recipes.openPreview",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/ && activeCustomEditorId != vscodecraft.recipeEditor",
+        "group": "navigation@40"
+      },
+      {
+        "command": "vscodecraft.recipes.openSource",
+        "when": "activeCustomEditorId == vscodecraft.recipeEditor",
+        "group": "navigation@40"
+      }
+    ],
+    "editor/context": [
+      {
+        "command": "vscodecraft.recipes.openEditor",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
+        "group": "vscodecraft@1"
+      },
+      {
+        "command": "vscodecraft.recipes.migrateFile",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
+        "group": "vscodecraft@2"
+      }
+    ],
+    "explorer/context": [
+      {
+        "command": "vscodecraft.recipes.new",
+        "when": "explorerResourceIsFolder && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?([\\/\\\\]|$)/",
+        "group": "vscodecraft@1"
+      },
+      {
+        "command": "vscodecraft.recipes.openEditor",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/",
+        "group": "navigation@9"
+      }
+    ],
+    "commandPalette": [
+      { "command": "vscodecraft.recipes.openSource", "when": "activeCustomEditorId == vscodecraft.recipeEditor" },
+      { "command": "vscodecraft.recipes.migrateFile", "when": "resourceExtname == .json && resourcePath =~ /[\\/\\\\]data[\\/\\\\][^\\/\\\\]+[\\/\\\\]recipes?[\\/\\\\]/" }
+    ]
+  }
+}

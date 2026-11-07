@@ -1,0 +1,89 @@
+{
+  "commands": [
+    { "command": "vscodecraft.translations.openLangEditor", "title": "%translations.openLangEditor%", "category": "VSCodeCraft", "icon": "$(globe)" },
+    { "command": "vscodecraft.translations.addMissing", "title": "%translations.addMissing%", "category": "VSCodeCraft", "icon": "$(add)" },
+    { "command": "vscodecraft.translations.copyMissingToLocale", "title": "%translations.copyMissingToLocale%", "category": "VSCodeCraft", "icon": "$(copy)" },
+    { "command": "vscodecraft.translations.findUnused", "title": "%translations.findUnused%", "category": "VSCodeCraft", "icon": "$(search)" },
+    { "command": "vscodecraft.translations.openTextEditor", "title": "%translations.openTextEditor%", "category": "VSCodeCraft", "icon": "$(symbol-string)" },
+    { "command": "vscodecraft.translations.motdPreview", "title": "%translations.motdPreview%", "category": "VSCodeCraft", "icon": "$(server)" }
+  ],
+  "menus": {
+    "editor/title": [
+      {
+        "command": "vscodecraft.translations.openLangEditor",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/ && activeCustomEditorId != vscodecraft.translations.langEditor",
+        "group": "navigation@20"
+      }
+    ],
+    "editor/context": [
+      {
+        "command": "vscodecraft.translations.openTextEditor",
+        "when": "editorLangId =~ /^jsonc?$/ && resourcePath =~ /[\\\\/](data|assets)[\\\\/]/",
+        "group": "vscodecraft@20"
+      },
+      {
+        "command": "vscodecraft.translations.copyMissingToLocale",
+        "when": "resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/",
+        "group": "vscodecraft@21"
+      }
+    ],
+    "explorer/context": [
+      {
+        "command": "vscodecraft.translations.openLangEditor",
+        "when": "(resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/) || (explorerResourceIsFolder && resourceFilename == lang)",
+        "group": "vscodecraft@20"
+      },
+      {
+        "command": "vscodecraft.translations.findUnused",
+        "when": "(resourceExtname == .json && resourcePath =~ /[\\\\/]assets[\\\\/][^\\\\/]+[\\\\/]lang[\\\\/][^\\\\/]+$/) || (explorerResourceIsFolder && resourceFilename == lang)",
+        "group": "vscodecraft@21"
+      }
+    ]
+  },
+  "customEditors": [
+    {
+      "viewType": "vscodecraft.translations.langEditor",
+      "displayName": "%translations.customEditor%",
+      "selector": [{ "filenamePattern": "**/assets/*/lang/*.json" }],
+      "priority": "option"
+    }
+  ],
+  "configuration": {
+    "properties": {
+      "vscodecraft.translations.sortKeys": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "%translations.config.sortKeys%",
+        "scope": "resource"
+      },
+      "vscodecraft.translations.autoSave": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%translations.config.autoSave%",
+        "scope": "resource"
+      },
+      "vscodecraft.translations.untranslatedMarker": {
+        "type": "string",
+        "default": "",
+        "markdownDescription": "%translations.config.untranslatedMarker%",
+        "examples": ["", "[TODO] ", "⚠ "],
+        "scope": "resource"
+      },
+      "vscodecraft.translations.hover": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%translations.config.hover%"
+      },
+      "vscodecraft.translations.colorPicker": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%translations.config.colorPicker%"
+      },
+      "vscodecraft.translations.decorations": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%translations.config.decorations%"
+      }
+    }
+  }
+}

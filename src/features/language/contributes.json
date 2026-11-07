@@ -1,0 +1,53 @@
+{
+  "commands": [
+    {
+      "command": "vscodecraft.language.validateWorkspace",
+      "title": "%language.validateWorkspace%",
+      "category": "VSCodeCraft",
+      "icon": "$(check-all)"
+    },
+    {
+      "command": "vscodecraft.language.renameLegacyFolder",
+      "title": "%language.renameLegacyFolder%",
+      "category": "VSCodeCraft"
+    },
+    {
+      "command": "vscodecraft.language.createResource",
+      "title": "%language.createResource%",
+      "category": "VSCodeCraft"
+    }
+  ],
+  "menus": {
+    "commandPalette": [
+      {
+        "command": "vscodecraft.language.renameLegacyFolder",
+        "when": "resourceExtname == .json"
+      },
+      {
+        "command": "vscodecraft.language.createResource",
+        "when": "false"
+      }
+    ]
+  },
+  "configuration": {
+    "properties": {
+      "vscodecraft.language.diagnostics": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%language.config.diagnostics%",
+        "scope": "resource"
+      },
+      "vscodecraft.language.validateWorkspace": {
+        "type": "boolean",
+        "default": true,
+        "markdownDescription": "%language.config.validateWorkspace%"
+      },
+      "vscodecraft.language.strictUnknownNamespaces": {
+        "type": "boolean",
+        "default": false,
+        "markdownDescription": "%language.config.strictUnknownNamespaces%",
+        "scope": "resource"
+      }
+    }
+  }
+}

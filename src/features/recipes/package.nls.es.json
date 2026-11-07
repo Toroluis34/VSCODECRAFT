@@ -1,0 +1,10 @@
+{
+  "recipes.openPreview": "Abrir vista previa de la receta al lado",
+  "recipes.openEditor": "Abrir receta en el editor visual",
+  "recipes.openSource": "Mostrar JSON de la receta",
+  "recipes.new": "Nueva receta…",
+  "recipes.migrate": "Migrar recetas a la versión objetivo",
+  "recipes.migrateFile": "Migrar esta receta a la versión objetivo",
+  "recipes.browser": "Explorador de recetas",
+  "recipes.editor.displayName": "Editor de recetas (VSCodeCraft)"
+}

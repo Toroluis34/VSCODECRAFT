@@ -1,0 +1,15 @@
+{
+  "translations.openLangEditor": "Abrir editor de idiomas",
+  "translations.addMissing": "Añadir traducciones que faltan",
+  "translations.copyMissingToLocale": "Copiar claves que faltan a otro idioma",
+  "translations.findUnused": "Buscar claves de traducción sin usar",
+  "translations.openTextEditor": "Editor de componentes de texto",
+  "translations.motdPreview": "Vista previa del MOTD",
+  "translations.customEditor": "Editor de idiomas de VSCodeCraft",
+  "translations.config.sortKeys": "Ordena alfabéticamente las claves de traducción cada vez que el editor de idiomas o los comandos de traducción escriben un archivo de idioma. Si está desactivado, se conserva el orden existente y las claves nuevas se colocan junto a sus vecinas de `en_us`.",
+  "translations.config.autoSave": "Guarda automáticamente los archivos de idioma tras los cambios hechos desde el editor de idiomas y los comandos de traducción (los archivos abiertos en un editor de texto quedan sin guardar).",
+  "translations.config.untranslatedMarker": "Prefijo que se añade al texto en inglés copiado a otros idiomas (p. ej. `[TODO] `). Vacío: se copia el texto en inglés tal cual; el editor de idiomas resalta como sin traducir los valores idénticos a `en_us`.",
+  "translations.config.hover": "Muestra al pasar el ratón una vista previa de los textos con formato `§`, de los componentes de texto JSON y de los demás idiomas de una clave en los archivos de idioma.",
+  "translations.config.colorPicker": "Muestra el selector de color para colores en texto (`\"color\": \"#RRGGBB\"` y colores con nombre de los componentes de texto) en los archivos JSON de recursos.",
+  "translations.config.decorations": "Resalta los códigos de color y formato `§` dentro de los archivos de idioma."
+}

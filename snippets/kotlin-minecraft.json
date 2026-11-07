@@ -1,0 +1,83 @@
+{
+  "Fabric: mod main object (Kotlin)": {
+    "prefix": [
+      "fabric-mod-main"
+    ],
+    "description": "Fabric entrypoint as a Kotlin object (requires fabric-language-kotlin; use \"adapter\": \"kotlin\" in fabric.mod.json).",
+    "body": [
+      "package ${1:com.example.mymod}",
+      "",
+      "import net.fabricmc.api.ModInitializer",
+      "import net.minecraft.resources.${2|Identifier,ResourceLocation|}",
+      "import org.slf4j.LoggerFactory",
+      "",
+      "object ${3:${TM_FILENAME_BASE}} : ModInitializer {",
+      "\tconst val MOD_ID = \"${4:mymod}\"",
+      "\tval LOGGER = LoggerFactory.getLogger(MOD_ID)",
+      "",
+      "\toverride fun onInitialize() {",
+      "\t\t$0",
+      "\t\tLOGGER.info(\"Hello from {}!\", MOD_ID)",
+      "\t}",
+      "",
+      "\tfun id(path: String): ${2} = ${2}.fromNamespaceAndPath(MOD_ID, path)",
+      "}"
+    ]
+  },
+  "Fabric: item register helper (Kotlin, 1.21.2+ / 26.x)": {
+    "prefix": [
+      "fabric-items"
+    ],
+    "description": "Kotlin ModItems; Item.Properties needs setId() since 1.21.2.",
+    "body": [
+      "object ${1:ModItems} {",
+      "\tval ${2:RUBY}: Item = register(\"${3:ruby}\", ::Item, Item.Properties()$4)",
+      "",
+      "\tfun register(name: String, factory: (Item.Properties) -> Item, properties: Item.Properties): Item {",
+      "\t\tval key = ResourceKey.create(Registries.ITEM, ${5:MyMod}.id(name))",
+      "\t\treturn Registry.register(BuiltInRegistries.ITEM, key, factory(properties.setId(key)))",
+      "\t}",
+      "",
+      "\tfun init() {}",
+      "}"
+    ]
+  },
+  "NeoForge: mod main class (Kotlin)": {
+    "prefix": [
+      "neo-mod-main"
+    ],
+    "description": "NeoForge @Mod class in Kotlin (requires Kotlin for Forge / KFF: modLoader=\"kotlinforforge\").",
+    "body": [
+      "package ${1:com.example.mymod}",
+      "",
+      "import net.minecraft.core.registries.Registries",
+      "import net.neoforged.bus.api.IEventBus",
+      "import net.neoforged.fml.common.Mod",
+      "import net.neoforged.neoforge.registries.DeferredRegister",
+      "",
+      "@Mod(${2:${TM_FILENAME_BASE}}.MODID)",
+      "class ${2}(modEventBus: IEventBus) {",
+      "\tcompanion object {",
+      "\t\tconst val MODID = \"${3:mymod}\"",
+      "\t\tval BLOCKS: DeferredRegister.Blocks = DeferredRegister.createBlocks(MODID)",
+      "\t\tval ITEMS: DeferredRegister.Items = DeferredRegister.createItems(MODID)",
+      "\t}",
+      "",
+      "\tinit {",
+      "\t\tBLOCKS.register(modEventBus)",
+      "\t\tITEMS.register(modEventBus)",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "NeoForge: simple item (Kotlin)": {
+    "prefix": [
+      "neo-item"
+    ],
+    "description": "registerItem sets the item id on the properties for you.",
+    "body": [
+      "val ${1:RUBY}: DeferredItem<Item> = ITEMS.registerItem(\"${2:ruby}\", ::Item)"
+    ]
+  }
+}
