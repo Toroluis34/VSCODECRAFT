@@ -27,6 +27,29 @@ function walk(dir: string, out: string[] = []): string[] {
   return out;
 }
 
+/**
+ * Parses JSON (trailing commas allowed) the way VS Code's JSON service sees numbers: a number written with a
+ * fraction or exponent (`1.0`) is NOT an integer there, so nudge those values off the integer grid.
+ */
+export function parseLikeVsCode(text: string): unknown {
+  const conv = (n: jsonc.Node): unknown => {
+    switch (n.type) {
+      case 'object':
+        return Object.fromEntries((n.children ?? []).map((p) => [p.children![0].value, p.children![1] ? conv(p.children![1]) : null]));
+      case 'array':
+        return (n.children ?? []).map(conv);
+      case 'number': {
+        const raw = text.slice(n.offset, n.offset + n.length);
+        return /[.eE]/.test(raw) && Number.isInteger(n.value) ? (n.value === 0 ? 1e-12 : n.value * (1 + 1e-12)) : n.value;
+      }
+      default:
+        return n.value;
+    }
+  };
+  const root = jsonc.parseTree(text, [], { allowTrailingComma: true });
+  return root ? conv(root) : undefined;
+}
+
 /** Validates every mapped file under `dir`; returns "file: errors" strings. */
 function validateTree(dir: string): { count: number; failures: string[] } {
   let count = 0;
@@ -38,7 +61,7 @@ function validateTree(dir: string): { count: number; failures: string[] } {
     if (path.basename(file) === 'pack.mcmeta' && !fs.readFileSync(file, 'utf8').includes('"pack"')) continue;
     count++;
     // Minecraft's JSON reader is lenient (vanilla has a few trailing commas).
-    const errors = check(schema, jsonc.parse(fs.readFileSync(file, 'utf8'), [], { allowTrailingComma: true }));
+    const errors = check(schema, parseLikeVsCode(fs.readFileSync(file, 'utf8')));
     if (errors.length) failures.push(`${path.relative(dir, file)} [${schema}]: ${errors.slice(0, 3).map((e) => `${e.path} ${e.message}`).join(' | ')}`);
   }
   return { count, failures };
